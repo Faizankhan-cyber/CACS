@@ -4,45 +4,175 @@ from datetime import datetime
 
 
 # =========================================================
-# PAGE CONFIGURATION
+# PAGE CONFIG
 # =========================================================
 
 st.set_page_config(
-    page_title="Smart Chatbot",
+    page_title="Nova AI",
     page_icon="🤖",
-    layout="centered"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 
 # =========================================================
-# CUSTOM CSS
+# DARK THEME + CUSTOM CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
-    .main-title {
+    /* Main background */
+    .stApp {
+        background: #0b0f14;
+        color: #f5f5f5;
+    }
+
+    /* Main content */
+    .main .block-container {
+        max-width: 1100px;
+        padding-top: 35px;
+        padding-bottom: 100px;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background: #080b0f;
+        border-right: 1px solid #20252d;
+    }
+
+    section[data-testid="stSidebar"] > div {
+        padding-top: 30px;
+    }
+
+    /* Header */
+    .header {
         text-align: center;
+        padding: 10px 0 30px 0;
+    }
+
+    .logo {
+        font-size: 55px;
+        margin-bottom: 5px;
+    }
+
+    .title {
         font-size: 42px;
-        font-weight: bold;
+        font-weight: 700;
+        color: #ffffff;
         margin-bottom: 5px;
     }
 
     .subtitle {
-        text-align: center;
-        color: gray;
-        margin-bottom: 30px;
+        color: #8b949e;
+        font-size: 16px;
     }
 
+    /* Status */
+    .status {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        background: #102417;
+        color: #4ade80;
+        font-size: 13px;
+        border: 1px solid #1d4d2b;
+    }
+
+    /* Welcome box */
     .welcome {
-        padding: 20px;
-        border-radius: 12px;
+        background: #11161d;
+        border: 1px solid #252c36;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
         text-align: center;
-        margin-bottom: 20px;
     }
 
-    .stChatMessage {
+    .welcome h3 {
+        color: #ffffff;
+        margin-bottom: 8px;
+    }
+
+    .welcome p {
+        color: #9ca3af;
+        margin: 0;
+    }
+
+    /* Sidebar text */
+    .side-title {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .side-text {
+        color: #8b949e;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Divider */
+    .divider {
+        height: 1px;
+        background: #20252d;
+        margin: 25px 0;
+    }
+
+    /* Chat messages */
+    [data-testid="stChatMessage"] {
+        background: #11161d;
+        border: 1px solid #202630;
+        border-radius: 14px;
+        padding: 15px;
+        margin-bottom: 12px;
+    }
+
+    /* Chat input */
+    [data-testid="stChatInput"] {
+        background: #11161d;
+    }
+
+    [data-testid="stChatInput"] textarea {
+        background: #11161d !important;
+        color: #ffffff !important;
+        border: 1px solid #303743 !important;
+    }
+
+    [data-testid="stChatInput"] textarea::placeholder {
+        color: #6b7280 !important;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        width: 100%;
+        background: #151a21;
+        color: #d1d5db;
+        border: 1px solid #2b323d;
+        border-radius: 10px;
+        padding: 10px;
+        transition: 0.2s;
+    }
+
+    .stButton > button:hover {
+        background: #1c232d;
+        border-color: #4b5563;
+        color: #ffffff;
+    }
+
+    /* Metrics */
+    [data-testid="stMetric"] {
+        background: #11161d;
+        border: 1px solid #242b35;
+        padding: 12px;
         border-radius: 12px;
+    }
+
+    /* Caption */
+    .stCaption {
+        color: #6b7280 !important;
     }
 
 </style>
@@ -50,32 +180,18 @@ st.markdown("""
 
 
 # =========================================================
-# TITLE
-# =========================================================
-
-st.markdown(
-    '<div class="main-title">🤖 Smart Chatbot</div>',
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    '<div class="subtitle">Your simple Python-powered virtual assistant</div>',
-    unsafe_allow_html=True
-)
-
-
-# =========================================================
 # SESSION STATE
 # =========================================================
 
 if "messages" not in st.session_state:
+
     st.session_state.messages = [
         {
             "role": "assistant",
             "content": (
-                "Hello! 👋 I'm your Smart Chatbot.\n\n"
-                "You can ask me about Python, AI, cloud computing, "
-                "cybersecurity, programming, or just have a conversation!"
+                "Hello! 👋 I'm Nova, your virtual assistant.\n\n"
+                "Ask me about Python, AI, cybersecurity, "
+                "cloud computing, Linux, Azure, or programming."
             ),
             "time": datetime.now().strftime("%I:%M %p")
         }
@@ -88,20 +204,21 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
 
-    st.header("⚙️ Chatbot")
+    st.markdown(
+        '<div class="side-title">🤖 Nova AI</div>',
+        unsafe_allow_html=True
+    )
 
-    st.write("### 📌 Features")
+    st.markdown(
+        '<div class="side-text">'
+        'A simple chatbot built with Python and Streamlit.'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
-    st.write("💬 Interactive chat")
-    st.write("🧠 Smart keyword matching")
-    st.write("🕒 Message timestamps")
-    st.write("⚡ Fast responses")
-    st.write("🗑️ Clear conversation")
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-    st.divider()
-
-    # Statistics
-    st.write("### 📊 Chat Statistics")
+    st.markdown("### 📊 Chat Statistics")
 
     total_messages = len(st.session_state.messages)
 
@@ -115,20 +232,34 @@ with st.sidebar:
         if message["role"] == "assistant"
     )
 
-    st.metric("Total Messages", total_messages)
-    st.metric("Your Messages", user_messages)
-    st.metric("Bot Messages", bot_messages)
+    col1, col2 = st.columns(2)
 
-    st.divider()
+    with col1:
+        st.metric("You", user_messages)
 
-    # Clear chat
-    if st.button("🗑️ Clear Chat", use_container_width=True):
+    with col2:
+        st.metric("Nova", bot_messages)
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    st.markdown("### 💡 Topics")
+
+    st.write("🐍 Python")
+    st.write("🤖 Artificial Intelligence")
+    st.write("🔐 Cybersecurity")
+    st.write("☁️ Cloud Computing")
+    st.write("🐧 Linux")
+    st.write("🔷 Microsoft Azure")
+
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+
+    if st.button("🗑️ Clear Conversation"):
 
         st.session_state.messages = [
             {
                 "role": "assistant",
                 "content": (
-                    "Chat cleared! 🧹\n\n"
+                    "Conversation cleared. 🧹\n\n"
                     "Hello again! How can I help you?"
                 ),
                 "time": datetime.now().strftime("%I:%M %p")
@@ -137,22 +268,94 @@ with st.sidebar:
 
         st.rerun()
 
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-# =========================================================
-# DISPLAY CHAT HISTORY
-# =========================================================
-
-for message in st.session_state.messages:
-
-    with st.chat_message(message["role"]):
-
-        st.write(message["content"])
-
-        st.caption(message["time"])
+    st.markdown(
+        '<div class="side-text">'
+        '🟢 Online<br>'
+        'Version 1.0<br><br>'
+        'Built with Python 🐍'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
 
 # =========================================================
-# CHATBOT FUNCTION
+# HEADER
+# =========================================================
+
+st.markdown("""
+<div class="header">
+
+    <div class="logo">🤖</div>
+
+    <div class="title">Nova AI</div>
+
+    <div class="subtitle">
+        Your simple Python-powered virtual assistant
+    </div>
+
+    <div class="status">
+        ● Online
+    </div>
+
+</div>
+""", unsafe_allow_html=True)
+
+
+# =========================================================
+# WELCOME MESSAGE
+# =========================================================
+
+if len(st.session_state.messages) == 1:
+
+    st.markdown("""
+    <div class="welcome">
+
+        <h3>👋 Welcome to Nova AI</h3>
+
+        <p>
+        Ask a question below to start a conversation.
+        </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# =========================================================
+# QUICK QUESTIONS
+# =========================================================
+
+if len(st.session_state.messages) == 1:
+
+    st.markdown("### 💡 Try asking")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+
+        if st.button("🐍 What is Python?"):
+
+            st.session_state.quick_question = "What is Python?"
+            st.rerun()
+
+    with col2:
+
+        if st.button("🤖 What is AI?"):
+
+            st.session_state.quick_question = "What is AI?"
+            st.rerun()
+
+    with col3:
+
+        if st.button("🔐 What is Cybersecurity?"):
+
+            st.session_state.quick_question = "What is cybersecurity?"
+            st.rerun()
+
+
+# =========================================================
+# CHATBOT RESPONSE FUNCTION
 # =========================================================
 
 def get_response(message):
@@ -166,7 +369,7 @@ def get_response(message):
 
         return (
             "Hello! 👋\n\n"
-            "Nice to meet you! What would you like to talk about?"
+            "Nice to meet you! What would you like to learn about?"
         )
 
 
@@ -175,8 +378,7 @@ def get_response(message):
 
         return (
             "I'm doing great! 🤖\n\n"
-            "Thanks for asking. I'm ready to help you with "
-            "whatever you're working on."
+            "I'm ready to answer your questions."
         )
 
 
@@ -184,33 +386,23 @@ def get_response(message):
     elif "your name" in message or "who are you" in message:
 
         return (
-            "I'm **Smart Chatbot** 🤖.\n\n"
-            "I'm a simple chatbot created using **Python and Streamlit**."
-        )
-
-
-    # Creator
-    elif "who made you" in message or "who created you" in message:
-
-        return (
-            "I was created using Python and Streamlit. 💻\n\n"
-            "My responses are currently based on predefined rules."
+            "I'm **Nova AI** 🤖.\n\n"
+            "I'm a simple chatbot built using Python and Streamlit."
         )
 
 
     # Capabilities
-    elif "what can you do" in message or "your features" in message:
+    elif "what can you do" in message:
 
         return (
-            "I can currently:\n\n"
-            "• 💬 Have simple conversations\n"
-            "• 🐍 Explain basic Python concepts\n"
-            "• 🤖 Explain AI concepts\n"
-            "• ☁️ Talk about cloud computing\n"
-            "• 🔐 Explain cybersecurity topics\n"
-            "• 💻 Answer basic programming questions\n\n"
-            "I'm still a simple chatbot, though. I haven't achieved "
-            "world domination yet."
+            "I can help with several basic topics:\n\n"
+            "🐍 Python\n"
+            "🤖 Artificial Intelligence\n"
+            "🔐 Cybersecurity\n"
+            "☁️ Cloud Computing\n"
+            "🐧 Linux\n"
+            "🔷 Microsoft Azure\n"
+            "💻 Programming"
         )
 
 
@@ -218,15 +410,15 @@ def get_response(message):
     elif "python" in message:
 
         return (
-            "🐍 **Python** is a high-level programming language "
-            "known for being simple and easy to learn.\n\n"
-            "It is commonly used for:\n"
+            "🐍 **Python** is a popular programming language "
+            "that is simple to learn and very powerful.\n\n"
+            "**Common uses:**\n"
             "• Web development\n"
             "• Automation\n"
             "• Data science\n"
-            "• Artificial Intelligence\n"
+            "• AI and machine learning\n"
             "• Cybersecurity\n"
-            "• Machine learning"
+            "• Scripting"
         )
 
 
@@ -235,9 +427,9 @@ def get_response(message):
 
         return (
             "🎈 **Streamlit** is a Python framework used to create "
-            "interactive web applications quickly.\n\n"
-            "You can build apps using mostly Python without having "
-            "to manually create a complete frontend."
+            "interactive web applications.\n\n"
+            "It lets you build apps using Python without needing "
+            "to write a full frontend from scratch."
         )
 
 
@@ -246,17 +438,16 @@ def get_response(message):
         "artificial intelligence" in message
         or "what is ai" in message
         or message == "ai"
-        or " ai " in f" {message} "
     ):
 
         return (
             "🤖 **Artificial Intelligence (AI)** is technology that "
             "allows computers to perform tasks that normally require "
             "human intelligence.\n\n"
-            "Examples include:\n"
+            "**Examples:**\n"
             "• Chatbots\n"
-            "• Image recognition\n"
             "• Voice assistants\n"
+            "• Image recognition\n"
             "• Recommendation systems\n"
             "• Generative AI"
         )
@@ -266,14 +457,13 @@ def get_response(message):
     elif (
         "cybersecurity" in message
         or "cyber security" in message
-        or "cyber threat" in message
     ):
 
         return (
             "🔐 **Cybersecurity** is the practice of protecting "
-            "systems, networks, applications, and data from "
-            "unauthorized access and cyber attacks.\n\n"
-            "Common threats include:\n"
+            "computers, networks, applications, and data from "
+            "cyber threats.\n\n"
+            "**Common threats:**\n"
             "• Phishing\n"
             "• Malware\n"
             "• Ransomware\n"
@@ -283,48 +473,15 @@ def get_response(message):
 
 
     # Cloud
-    elif (
-        "cloud computing" in message
-        or "cloud" in message
-    ):
+    elif "cloud" in message:
 
         return (
             "☁️ **Cloud computing** means using computing resources "
-            "over the internet instead of relying only on your own computer.\n\n"
-            "Examples include:\n"
-            "• Virtual machines\n"
-            "• Cloud storage\n"
-            "• Databases\n"
-            "• Networking\n"
-            "• Cloud security\n\n"
-            "Popular cloud platforms include AWS, Microsoft Azure, "
-            "and Google Cloud."
-        )
-
-
-    # Programming
-    elif (
-        "programming" in message
-        or "coding" in message
-    ):
-
-        return (
-            "💻 **Programming** means writing instructions that tell "
-            "a computer what to do.\n\n"
-            "Popular programming languages include Python, Java, "
-            "JavaScript, C, C++, and C#."
-        )
-
-
-    # Linux
-    elif "linux" in message:
-
-        return (
-            "🐧 **Linux** is an open-source operating system widely "
-            "used on servers, cloud systems, cybersecurity labs, "
-            "and development environments.\n\n"
-            "Popular distributions include Ubuntu, Debian, Fedora, "
-            "and Kali Linux."
+            "such as servers, storage, and databases over the internet.\n\n"
+            "**Popular cloud platforms:**\n"
+            "• Microsoft Azure\n"
+            "• Amazon Web Services\n"
+            "• Google Cloud"
         )
 
 
@@ -332,7 +489,7 @@ def get_response(message):
     elif "azure" in message:
 
         return (
-            "☁️ **Microsoft Azure** is Microsoft's cloud computing "
+            "🔷 **Microsoft Azure** is Microsoft's cloud computing "
             "platform.\n\n"
             "It provides services for:\n"
             "• Virtual machines\n"
@@ -345,11 +502,31 @@ def get_response(message):
         )
 
 
+    # Linux
+    elif "linux" in message:
+
+        return (
+            "🐧 **Linux** is an open-source operating system "
+            "widely used for servers, cloud computing, development, "
+            "and cybersecurity.\n\n"
+            "Popular distributions include Ubuntu, Debian, Fedora, "
+            "and Kali Linux."
+        )
+
+
+    # Programming
+    elif "programming" in message or "coding" in message:
+
+        return (
+            "💻 **Programming** is the process of writing instructions "
+            "that tell a computer what to do.\n\n"
+            "Some popular programming languages are Python, Java, "
+            "JavaScript, C, C++, and C#."
+        )
+
+
     # Thanks
-    elif (
-        "thank you" in message
-        or "thanks" in message
-    ):
+    elif "thank" in message:
 
         return (
             "You're welcome! 😊\n\n"
@@ -357,61 +534,80 @@ def get_response(message):
         )
 
 
-    # Help
-    elif "help" in message:
-
-        return (
-            "Sure! 😊 Try asking me something like:\n\n"
-            "• What is Python?\n"
-            "• What is AI?\n"
-            "• What is cybersecurity?\n"
-            "• What is cloud computing?\n"
-            "• What is Linux?\n"
-            "• What is Azure?\n"
-            "• What can you do?"
-        )
-
-
     # Goodbye
-    elif message in [
-        "bye",
-        "goodbye",
-        "see you",
-        "see you later"
-    ]:
+    elif message in ["bye", "goodbye", "see you", "see you later"]:
 
         return (
             "Goodbye! 👋\n\n"
-            "Thanks for chatting with me. Have a great day!"
+            "Thanks for chatting with Nova AI!"
         )
 
 
-    # Unknown question
+    # Help
+    elif message == "help":
+
+        return (
+            "Here are some things you can ask me:\n\n"
+            "🐍 What is Python?\n"
+            "🤖 What is AI?\n"
+            "🔐 What is cybersecurity?\n"
+            "☁️ What is cloud computing?\n"
+            "🐧 What is Linux?\n"
+            "🔷 What is Azure?\n"
+            "💻 What is programming?"
+        )
+
+
+    # Default
     else:
 
         return (
-            "🤔 I'm not sure how to answer that yet.\n\n"
+            "🤔 I don't know the answer to that yet.\n\n"
             "Try asking me about **Python, AI, cybersecurity, "
-            "cloud computing, Linux, Azure, programming**, "
-            "or type **help** to see what I can do."
+            "cloud computing, Linux, Azure, or programming**."
         )
 
 
 # =========================================================
-# USER INPUT
+# DISPLAY CHAT HISTORY
 # =========================================================
 
-user_input = st.chat_input(
-    "💬 Ask me anything..."
-)
+for message in st.session_state.messages:
 
+    with st.chat_message(message["role"]):
+
+        st.markdown(message["content"])
+
+        st.caption(message["time"])
+
+
+# =========================================================
+# HANDLE QUICK QUESTION
+# =========================================================
+
+if "quick_question" in st.session_state:
+
+    user_input = st.session_state.quick_question
+
+    del st.session_state.quick_question
+
+else:
+
+    user_input = st.chat_input(
+        "💬 Message Nova AI..."
+    )
+
+
+# =========================================================
+# PROCESS USER MESSAGE
+# =========================================================
 
 if user_input:
 
     current_time = datetime.now().strftime("%I:%M %p")
 
 
-    # Save user message
+    # User message
     st.session_state.messages.append(
         {
             "role": "user",
@@ -421,35 +617,35 @@ if user_input:
     )
 
 
-    # Display user message
     with st.chat_message("user"):
-        st.write(user_input)
+
+        st.markdown(user_input)
         st.caption(current_time)
 
 
-    # Generate response
+    # Bot response
     response = get_response(user_input)
 
 
-    # Typing effect
     with st.chat_message("assistant"):
 
-        message_placeholder = st.empty()
+        placeholder = st.empty()
 
         displayed_text = ""
 
+        # Simple typing animation
         for word in response.split():
 
             displayed_text += word + " "
 
-            message_placeholder.markdown(displayed_text)
+            placeholder.markdown(displayed_text)
 
-            time.sleep(0.02)
+            time.sleep(0.015)
 
         st.caption(current_time)
 
 
-    # Save assistant message
+    # Save response
     st.session_state.messages.append(
         {
             "role": "assistant",
