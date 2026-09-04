@@ -7,7 +7,7 @@ from datetime import datetime
 # =========================================================
 
 st.set_page_config(
-    page_title="Bren's Jarvis - Course Registration",
+    page_title="Bren's Jarvis",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -15,25 +15,37 @@ st.set_page_config(
 
 
 # =========================================================
-# DARK THEME
+# RESPONSIVE DARK THEME
 # =========================================================
 
 st.markdown("""
 <style>
 
+/* ========================================================
+   GLOBAL
+   ======================================================== */
+
+html, body, [class*="css"] {
+    font-family: Arial, sans-serif;
+}
+
 .stApp {
-    background-color: #080b10;
+    background: #080b10;
     color: #ffffff;
 }
 
-.block-container {
-    max-width: 1100px;
-    padding-top: 30px;
-    padding-bottom: 100px;
+.main .block-container {
+    max-width: 1050px;
+    padding-top: 32px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 120px;
 }
 
 
-/* SIDEBAR */
+/* ========================================================
+   SIDEBAR
+   ======================================================== */
 
 section[data-testid="stSidebar"] {
     background-color: #0b0f15;
@@ -45,86 +57,114 @@ section[data-testid="stSidebar"] * {
 }
 
 
-/* HEADER */
+/* ========================================================
+   MAIN HEADER
+   ======================================================== */
 
 .main-title {
     text-align: center;
-    font-size: 42px;
+    font-size: 40px;
+    line-height: 1.2;
     font-weight: 700;
     color: #ffffff;
-    margin-top: 10px;
+    margin: 0;
+    padding: 0;
 }
 
 .main-subtitle {
     text-align: center;
     color: #8b95a3;
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 .status {
     text-align: center;
     color: #4ade80;
     font-size: 14px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 32px;
 }
 
 
-/* WELCOME */
+/* ========================================================
+   WELCOME CARD
+   ======================================================== */
 
 .welcome-box {
-    background-color: #10161e;
-    border: 1px solid #242d39;
+    background: #10161e;
+    border: 1px solid #26313e;
     border-radius: 18px;
-    padding: 30px;
+    padding: 30px 25px;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 28px;
 }
 
 .welcome-box h2 {
     color: #ffffff;
-    margin-bottom: 10px;
+    font-size: 28px;
+    line-height: 1.3;
+    margin: 0 0 12px 0;
 }
 
 .welcome-box p {
-    color: #8993a1;
+    color: #8f99a8;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
 }
 
 
-/* COURSE CARDS */
+/* ========================================================
+   SECTION HEADINGS
+   ======================================================== */
 
-.course-card {
+h1, h2, h3 {
+    color: #ffffff !important;
+}
+
+
+/* ========================================================
+   QUICK ACTION BUTTONS
+   ======================================================== */
+
+.stButton > button {
+    width: 100%;
+    min-height: 44px;
     background-color: #10161e;
-    border: 1px solid #242d39;
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 12px;
+    color: #dce2ea;
+    border: 1px solid #2a3542;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: 0.2s;
 }
 
-.course-card h4 {
+.stButton > button:hover {
+    background-color: #171f29;
     color: #ffffff;
-    margin-bottom: 5px;
-}
-
-.course-card p {
-    color: #8b95a3;
+    border-color: #4b5868;
 }
 
 
-/* CHAT */
+/* ========================================================
+   CHAT MESSAGES
+   ======================================================== */
 
 [data-testid="stChatMessage"] {
     background-color: #10161e;
-    border: 1px solid #222b37;
-    border-radius: 15px;
-    margin-bottom: 12px;
+    border: 1px solid #222c38;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
 }
 
 
-/* INPUT */
+/* ========================================================
+   CHAT INPUT
+   ======================================================== */
 
 [data-testid="stChatInput"] {
-    background-color: #080b10;
+    background-color: #080b10 !important;
 }
 
 [data-testid="stChatInput"] textarea {
@@ -132,6 +172,7 @@ section[data-testid="stSidebar"] * {
     color: #ffffff !important;
     border: 1px solid #303b49 !important;
     border-radius: 14px !important;
+    font-size: 15px !important;
 }
 
 [data-testid="stChatInput"] textarea::placeholder {
@@ -139,24 +180,9 @@ section[data-testid="stSidebar"] * {
 }
 
 
-/* BUTTONS */
-
-.stButton > button {
-    background-color: #10161e;
-    color: #d8dee8;
-    border: 1px solid #293442;
-    border-radius: 10px;
-    min-height: 42px;
-}
-
-.stButton > button:hover {
-    background-color: #171e27;
-    color: #ffffff;
-    border-color: #4a5666;
-}
-
-
-/* METRICS */
+/* ========================================================
+   METRICS
+   ======================================================== */
 
 [data-testid="stMetric"] {
     background-color: #10161e;
@@ -166,13 +192,188 @@ section[data-testid="stSidebar"] * {
 }
 
 
-/* FOOTER */
+/* ========================================================
+   COURSE CARD
+   ======================================================== */
+
+.course-card {
+    background-color: #10161e;
+    border: 1px solid #242d39;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 12px;
+}
+
+
+/* ========================================================
+   FOOTER
+   ======================================================== */
 
 .footer {
     text-align: center;
     color: #505a68;
     font-size: 12px;
     margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+
+/* ========================================================
+   TABLET
+   ======================================================== */
+
+@media (max-width: 900px) {
+
+    .main .block-container {
+        max-width: 900px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .main-title {
+        font-size: 36px;
+    }
+
+    .welcome-box {
+        padding: 25px 20px;
+    }
+
+}
+
+
+/* ========================================================
+   MOBILE
+   ======================================================== */
+
+@media (max-width: 640px) {
+
+    /* Main page */
+
+    .main .block-container {
+        width: 100%;
+        max-width: 100%;
+        padding-top: 22px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 100px;
+    }
+
+
+    /* Header */
+
+    .main-title {
+        font-size: 30px;
+        line-height: 1.2;
+        white-space: normal;
+    }
+
+    .main-subtitle {
+        font-size: 14px;
+        margin-top: 8px;
+        line-height: 1.4;
+    }
+
+    .status {
+        font-size: 13px;
+        margin-top: 8px;
+        margin-bottom: 24px;
+    }
+
+
+    /* Welcome */
+
+    .welcome-box {
+        padding: 25px 16px;
+        border-radius: 16px;
+        margin-bottom: 24px;
+    }
+
+    .welcome-box h2 {
+        font-size: 25px;
+        line-height: 1.25;
+    }
+
+    .welcome-box p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+
+    /* Section heading */
+
+    .main .block-container h2 {
+        font-size: 25px !important;
+    }
+
+    .main .block-container h3 {
+        font-size: 21px !important;
+    }
+
+
+    /* Quick buttons */
+
+    .stButton > button {
+        min-height: 48px;
+        font-size: 14px;
+    }
+
+
+    /* Chat */
+
+    [data-testid="stChatMessage"] {
+        border-radius: 12px;
+        padding: 10px 12px;
+    }
+
+    [data-testid="stChatInput"] textarea {
+        font-size: 14px !important;
+    }
+
+
+    /* Metrics */
+
+    [data-testid="stMetric"] {
+        padding: 9px;
+    }
+
+
+    /* Footer */
+
+    .footer {
+        font-size: 11px;
+        margin-top: 25px;
+    }
+
+}
+
+
+/* ========================================================
+   VERY SMALL PHONES
+   ======================================================== */
+
+@media (max-width: 380px) {
+
+    .main .block-container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .main-title {
+        font-size: 27px;
+    }
+
+    .main-subtitle {
+        font-size: 13px;
+    }
+
+    .welcome-box h2 {
+        font-size: 22px;
+    }
+
+    .welcome-box p {
+        font-size: 13px;
+    }
+
 }
 
 </style>
@@ -275,9 +476,11 @@ if "messages" not in st.session_state:
             "role": "assistant",
             "content": (
                 "Hello, student! 👋\n\n"
-                "I'm **Bren's Jarvis**, your Course Registration Assistant. 🎓\n\n"
-                "I can help you explore courses, understand prerequisites, "
-                "check credits, find electives and plan your registration."
+                "I'm **Bren's Jarvis**, your Course Registration "
+                "Assistant. 🎓\n\n"
+                "I can help you explore courses, check "
+                "prerequisites, compare electives and plan "
+                "your registration."
             ),
             "time": datetime.now().strftime("%I:%M %p")
         }
@@ -302,8 +505,7 @@ def course_list():
             f"**{code} - {course['name']}**\n"
             f"Credits: {course['credits']} | "
             f"Type: {course['type']} | "
-            f"Day: {course['day']} | "
-            f"Time: {course['time']}\n\n"
+            f"Schedule: {course['day']}, {course['time']}\n\n"
         )
 
     return text
@@ -331,18 +533,16 @@ def find_course(message):
     for code, course in courses.items():
 
         if code.lower() in message:
-
             return code, course
 
         if course["name"].lower() in message:
-
             return code, course
 
     return None, None
 
 
 # =========================================================
-# JARVIS RESPONSE SYSTEM
+# JARVIS RESPONSE
 # =========================================================
 
 def get_response(message):
@@ -350,35 +550,22 @@ def get_response(message):
     message = message.lower().strip()
 
 
-    # GREETING
-
-    if message in [
-        "hello",
-        "hi",
-        "hey",
-        "hii",
-        "helo"
-    ]:
+    if message in ["hello", "hi", "hey", "hii", "helo"]:
 
         return (
             "Hello! 👋\n\n"
-            "Bren's Jarvis is ready to help with your "
-            "course registration."
+            "Bren's Jarvis is online and ready to help "
+            "with your course registration."
         )
 
-
-    # NAME
 
     if "your name" in message or "who are you" in message:
 
         return (
             "I'm **Bren's Jarvis** 🤖🎓.\n\n"
-            "I'm your **Course Registration Assistant**. "
-            "I help students choose and understand their courses."
+            "I'm your Course Registration Assistant."
         )
 
-
-    # WHAT CAN YOU DO
 
     if "what can you do" in message:
 
@@ -390,12 +577,9 @@ def get_response(message):
             "📊 Calculate credits\n"
             "🕐 Check course timings\n"
             "📋 Explain registration steps\n"
-            "💡 Suggest courses based on your interests\n"
-            "📝 Build a sample course plan"
+            "💡 Suggest courses based on your interests"
         )
 
-
-    # AVAILABLE COURSES
 
     if (
         "available courses" in message
@@ -407,23 +591,12 @@ def get_response(message):
         return course_list()
 
 
-    # ELECTIVES
-
-    if (
-        "elective" in message
-        or "electives" in message
-    ):
+    if "elective" in message:
 
         return elective_list()
 
 
-    # PREREQUISITE
-
-    if (
-        "prerequisite" in message
-        or "prerequisite" in message
-        or "requirement" in message
-    ):
+    if "prerequisite" in message or "requirement" in message:
 
         code, course = find_course(message)
 
@@ -435,13 +608,10 @@ def get_response(message):
             )
 
         return (
-            "Please mention the course code or course name.\n\n"
-            "For example:\n"
-            "**What is the prerequisite for BCS305?**"
+            "Please mention the course code or name.\n\n"
+            "Example: **What is the prerequisite for BCS305?**"
         )
 
-
-    # COURSE DETAILS
 
     if (
         "details" in message
@@ -458,7 +628,6 @@ def get_response(message):
                 f"**Credits:** {course['credits']}\n\n"
                 f"**Type:** {course['type']}\n\n"
                 f"**Semester:** {course['semester']}\n\n"
-                f"**Department:** {course['department']}\n\n"
                 f"**Prerequisite:** {course['prerequisite']}\n\n"
                 f"**Schedule:** {course['day']}, {course['time']}"
             )
@@ -469,12 +638,7 @@ def get_response(message):
         )
 
 
-    # CREDITS
-
-    if (
-        "credits" in message
-        or "credit" in message
-    ):
+    if "credit" in message:
 
         code, course = find_course(message)
 
@@ -490,88 +654,21 @@ def get_response(message):
             for c in st.session_state.selected_courses
         )
 
-        if st.session_state.selected_courses:
-
-            return (
-                f"Your currently selected courses carry "
-                f"**{total} credits** in total."
-            )
-
         return (
-            "You haven't selected any courses yet.\n\n"
-            "Use the **Course Planner** in the sidebar."
+            f"Your selected courses currently carry "
+            f"**{total} credits**."
         )
 
 
-    # PYTHON
-
-    if "python" in message:
+    if "how to register" in message or "registration process" in message:
 
         return (
-            "🐍 **Python Programming** is a core programming "
-            "course in this sample catalog.\n\n"
-            "It carries **4 credits**.\n\n"
-            "It is also a prerequisite for Artificial Intelligence."
-        )
-
-
-    # CYBERSECURITY
-
-    if (
-        "cybersecurity" in message
-        or "cyber security" in message
-    ):
-
-        return (
-            "🔐 **Cybersecurity Fundamentals** is an elective "
-            "focused on basic security concepts.\n\n"
-            "Credits: **3**\n\n"
-            "Prerequisite: **None**"
-        )
-
-
-    # CLOUD
-
-    if "cloud" in message:
-
-        return (
-            "☁️ **Cloud Computing** is an elective focused "
-            "on cloud platforms and services.\n\n"
-            "Credits: **3**\n\n"
-            "Prerequisite: **Computer Networks**"
-        )
-
-
-    # AI
-
-    if (
-        "artificial intelligence" in message
-        or "what is ai" in message
-    ):
-
-        return (
-            "🤖 **Artificial Intelligence** is an elective "
-            "focused on AI concepts and applications.\n\n"
-            "Credits: **3**\n\n"
-            "Prerequisite: **Python Programming**"
-        )
-
-
-    # REGISTRATION PROCESS
-
-    if (
-        "how to register" in message
-        or "registration process" in message
-        or "register for course" in message
-    ):
-
-        return (
-            "📋 **Typical Course Registration Process**\n\n"
-            "**1.** Check the available courses.\n\n"
-            "**2.** Review prerequisites.\n\n"
-            "**3.** Check your timetable for conflicts.\n\n"
-            "**4.** Select the required core courses.\n\n"
-            "**5.** Choose your electives.\n\n"
+            "📋 **Course Registration Steps**\n\n"
+            "**1.** Check available courses.\n\n"
+            "**2.** Check prerequisites.\n\n"
+            "**3.** Check your timetable.\n\n"
+            "**4.** Select your core courses.\n\n"
+            "**5.** Select your electives.\n\n"
             "**6.** Check your total credits.\n\n"
             "**7.** Submit your registration.\n\n"
             "Always follow your college's official registration "
@@ -579,60 +676,35 @@ def get_response(message):
         )
 
 
-    # RECOMMENDATION
-
-    if (
-        "recommend" in message
-        or "suggest" in message
-        or "which course" in message
-    ):
-
-        if (
-            "cyber" in message
-            or "security" in message
-        ):
-
-            return (
-                "🔐 If you're interested in cybersecurity, "
-                "I'd recommend **Cybersecurity Fundamentals**.\n\n"
-                "It is a 3-credit elective with no prerequisite."
-            )
-
-        if (
-            "cloud" in message
-            or "azure" in message
-        ):
-
-            return (
-                "☁️ If you're interested in cloud computing, "
-                "I'd recommend **Cloud Computing**.\n\n"
-                "It carries 3 credits and requires "
-                "Computer Networks."
-            )
-
-        if "ai" in message:
-
-            return (
-                "🤖 If you're interested in AI, "
-                "I'd recommend **Artificial Intelligence**.\n\n"
-                "You'll need Python Programming as a prerequisite."
-            )
+    if "cyber" in message or "security" in message:
 
         return (
-            "I can recommend a course based on your interest.\n\n"
-            "Try:\n"
-            "• **Recommend a cybersecurity course**\n"
-            "• **Recommend a cloud course**\n"
-            "• **Recommend an AI course**"
+            "🔐 If you're interested in cybersecurity, "
+            "I'd recommend **Cybersecurity Fundamentals**.\n\n"
+            "It is a 3-credit elective with no prerequisite."
         )
 
 
-    # THANK YOU
+    if "cloud" in message or "azure" in message:
 
-    if (
-        "thanks" in message
-        or "thank you" in message
-    ):
+        return (
+            "☁️ If you're interested in cloud computing, "
+            "I'd recommend **Cloud Computing**.\n\n"
+            "It carries 3 credits and requires "
+            "Computer Networks."
+        )
+
+
+    if "ai" in message:
+
+        return (
+            "🤖 If you're interested in AI, "
+            "I'd recommend **Artificial Intelligence**.\n\n"
+            "Python Programming is the prerequisite."
+        )
+
+
+    if "thank" in message:
 
         return (
             "You're welcome! 😊\n\n"
@@ -640,12 +712,7 @@ def get_response(message):
         )
 
 
-    # GOODBYE
-
-    if message in [
-        "bye",
-        "goodbye"
-    ]:
+    if message in ["bye", "goodbye"]:
 
         return (
             "Goodbye! 👋\n\n"
@@ -653,16 +720,13 @@ def get_response(message):
         )
 
 
-    # DEFAULT
-
     return (
         "I'm not sure about that yet. 🤔\n\n"
-        "Try asking me something like:\n\n"
+        "Try asking:\n\n"
         "📚 **Show available courses**\n"
         "🎯 **Show electives**\n"
         "📘 **Tell me about BCS305**\n"
         "✅ **What is the prerequisite for BCS306?**\n"
-        "📊 **How many credits is BCS301?**\n"
         "💡 **Recommend a cybersecurity course**\n"
         "📋 **How do I register for a course?**"
     )
@@ -696,7 +760,8 @@ with st.sidebar:
             "Semester 4",
             "Semester 5",
             "Semester 6"
-        ]
+        ],
+        index=2
     )
 
     st.divider()
@@ -724,11 +789,11 @@ with st.sidebar:
 
     if total_credits > 24:
 
-        st.error("⚠️ Credit load is high.")
+        st.warning("⚠️ High credit load")
 
     elif total_credits > 0:
 
-        st.success("✅ Credit load calculated.")
+        st.success("✅ Credit load calculated")
 
     st.divider()
 
@@ -739,10 +804,7 @@ with st.sidebar:
         use_container_width=True
     ):
 
-        st.session_state.quick_question = (
-            "Show available courses"
-        )
-
+        st.session_state.quick_question = "Show available courses"
         st.rerun()
 
 
@@ -751,10 +813,7 @@ with st.sidebar:
         use_container_width=True
     ):
 
-        st.session_state.quick_question = (
-            "Show electives"
-        )
-
+        st.session_state.quick_question = "Show electives"
         st.rerun()
 
 
@@ -782,14 +841,20 @@ with st.sidebar:
                 "role": "assistant",
                 "content": (
                     "Chat cleared. 🧹\n\n"
-                    "Bren's Jarvis is ready to help with "
-                    "your course registration."
+                    "Bren's Jarvis is ready to help "
+                    "with your registration."
                 ),
                 "time": datetime.now().strftime("%I:%M %p")
             }
         ]
 
         st.rerun()
+
+    st.divider()
+
+    st.success("● JARVIS ONLINE")
+
+    st.caption("Python + Streamlit")
 
 
 # =========================================================
@@ -809,13 +874,15 @@ st.markdown(
 )
 
 st.markdown(
-    '<div class="status">● Registration Assistant Online</div>',
+    '<div class="status">'
+    '● Registration Assistant Online'
+    '</div>',
     unsafe_allow_html=True
 )
 
 
 # =========================================================
-# WELCOME
+# WELCOME SECTION
 # =========================================================
 
 if len(st.session_state.messages) == 1:
@@ -826,12 +893,12 @@ if len(st.session_state.messages) == 1:
         f"""
         <div class="welcome-box">
 
-        <h2>👋 Welcome, {name}</h2>
+            <h2>👋 Welcome, {name}</h2>
 
-        <p>
-        I'm Bren's Jarvis. I can help you plan your
-        <b>{semester}</b> course registration.
-        </p>
+            <p>
+            I'm Bren's Jarvis. I can help you plan your
+            <b>{semester}</b> course registration.
+            </p>
 
         </div>
         """,
@@ -896,7 +963,7 @@ if len(st.session_state.messages) == 1:
 
 
 # =========================================================
-# DISPLAY CHAT HISTORY
+# CHAT HISTORY
 # =========================================================
 
 for message in st.session_state.messages:
@@ -909,7 +976,7 @@ for message in st.session_state.messages:
 
 
 # =========================================================
-# USER INPUT
+# CHAT INPUT
 # =========================================================
 
 if "quick_question" in st.session_state:
@@ -934,7 +1001,7 @@ if user_input:
     current_time = datetime.now().strftime("%I:%M %p")
 
 
-    # User message
+    # USER
 
     st.session_state.messages.append({
         "role": "user",
@@ -942,39 +1009,23 @@ if user_input:
         "time": current_time
     })
 
-
     with st.chat_message("user"):
 
         st.markdown(user_input)
-
         st.caption(current_time)
 
 
-    # Jarvis response
+    # JARVIS
 
     response = get_response(user_input)
 
-
     with st.chat_message("assistant"):
 
-        placeholder = st.empty()
-
-        words = response.split()
-
-        displayed = ""
-
-        for word in words:
-
-            displayed += word + " "
-
-            placeholder.markdown(displayed)
-
-            time.sleep(0.01)
-
+        st.markdown(response)
         st.caption(current_time)
 
 
-    # Save response
+    # SAVE
 
     st.session_state.messages.append({
         "role": "assistant",
