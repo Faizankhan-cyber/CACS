@@ -1,6 +1,6 @@
 import streamlit as st
-import time
 from datetime import datetime
+import time
 
 
 # =========================================================
@@ -10,170 +10,192 @@ from datetime import datetime
 st.set_page_config(
     page_title="Nova AI",
     page_icon="🤖",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded"
 )
 
 
 # =========================================================
-# DARK THEME + CUSTOM CSS
+# DARK THEME CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
-    /* Main background */
-    .stApp {
-        background: #0b0f14;
-        color: #f5f5f5;
-    }
+/* ================================
+   MAIN APP
+================================ */
 
-    /* Main content */
-    .main .block-container {
-        max-width: 1100px;
-        padding-top: 35px;
-        padding-bottom: 100px;
-    }
+.stApp {
+    background-color: #0b0f14;
+    color: #ffffff;
+}
 
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background: #080b0f;
-        border-right: 1px solid #20252d;
-    }
+.main .block-container {
+    max-width: 900px;
+    padding-top: 40px;
+    padding-bottom: 120px;
+}
 
-    section[data-testid="stSidebar"] > div {
-        padding-top: 30px;
-    }
 
-    /* Header */
-    .header {
-        text-align: center;
-        padding: 10px 0 30px 0;
-    }
+/* ================================
+   SIDEBAR
+================================ */
 
-    .logo {
-        font-size: 55px;
-        margin-bottom: 5px;
-    }
+section[data-testid="stSidebar"] {
+    background-color: #080b10;
+    border-right: 1px solid #202630;
+}
 
-    .title {
-        font-size: 42px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 5px;
-    }
+section[data-testid="stSidebar"] * {
+    color: #e5e7eb;
+}
 
-    .subtitle {
-        color: #8b949e;
-        font-size: 16px;
-    }
 
-    /* Status */
-    .status {
-        display: inline-block;
-        margin-top: 15px;
-        padding: 6px 14px;
-        border-radius: 20px;
-        background: #102417;
-        color: #4ade80;
-        font-size: 13px;
-        border: 1px solid #1d4d2b;
-    }
+/* ================================
+   TITLE
+================================ */
 
-    /* Welcome box */
-    .welcome {
-        background: #11161d;
-        border: 1px solid #252c36;
-        border-radius: 16px;
-        padding: 25px;
-        margin-bottom: 25px;
-        text-align: center;
-    }
+.title-container {
+    text-align: center;
+    padding: 20px 0 30px 0;
+}
 
-    .welcome h3 {
-        color: #ffffff;
-        margin-bottom: 8px;
-    }
+.title-container h1 {
+    font-size: 42px;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 700;
+}
 
-    .welcome p {
-        color: #9ca3af;
-        margin: 0;
-    }
+.title-container p {
+    color: #8b949e;
+    font-size: 16px;
+    margin-top: 8px;
+}
 
-    /* Sidebar text */
-    .side-title {
-        color: #ffffff;
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
 
-    .side-text {
-        color: #8b949e;
-        font-size: 14px;
-        line-height: 1.6;
-    }
+/* ================================
+   ONLINE STATUS
+================================ */
 
-    /* Divider */
-    .divider {
-        height: 1px;
-        background: #20252d;
-        margin: 25px 0;
-    }
+.online {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background-color: #102217;
+    border: 1px solid #1d4d2b;
+    color: #4ade80;
+    font-size: 13px;
+}
 
-    /* Chat messages */
-    [data-testid="stChatMessage"] {
-        background: #11161d;
-        border: 1px solid #202630;
-        border-radius: 14px;
-        padding: 15px;
-        margin-bottom: 12px;
-    }
 
-    /* Chat input */
-    [data-testid="stChatInput"] {
-        background: #11161d;
-    }
+/* ================================
+   WELCOME CARD
+================================ */
 
-    [data-testid="stChatInput"] textarea {
-        background: #11161d !important;
-        color: #ffffff !important;
-        border: 1px solid #303743 !important;
-    }
+.welcome-card {
+    background-color: #11161d;
+    border: 1px solid #242b35;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-    [data-testid="stChatInput"] textarea::placeholder {
-        color: #6b7280 !important;
-    }
+.welcome-card h3 {
+    margin: 0 0 8px 0;
+    color: #ffffff;
+}
 
-    /* Buttons */
-    .stButton > button {
-        width: 100%;
-        background: #151a21;
-        color: #d1d5db;
-        border: 1px solid #2b323d;
-        border-radius: 10px;
-        padding: 10px;
-        transition: 0.2s;
-    }
+.welcome-card p {
+    margin: 0;
+    color: #8b949e;
+}
 
-    .stButton > button:hover {
-        background: #1c232d;
-        border-color: #4b5563;
-        color: #ffffff;
-    }
 
-    /* Metrics */
-    [data-testid="stMetric"] {
-        background: #11161d;
-        border: 1px solid #242b35;
-        padding: 12px;
-        border-radius: 12px;
-    }
+/* ================================
+   CHAT MESSAGES
+================================ */
 
-    /* Caption */
-    .stCaption {
-        color: #6b7280 !important;
-    }
+[data-testid="stChatMessage"] {
+    background-color: #11161d;
+    border: 1px solid #242b35;
+    border-radius: 14px;
+    margin-bottom: 10px;
+}
+
+
+/* ================================
+   CHAT INPUT
+================================ */
+
+[data-testid="stChatInput"] {
+    background-color: #0b0f14;
+}
+
+[data-testid="stChatInput"] textarea {
+    background-color: #11161d !important;
+    color: #ffffff !important;
+    border: 1px solid #303743 !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #6b7280 !important;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.stButton > button {
+    width: 100%;
+    background-color: #11161d;
+    color: #d1d5db;
+    border: 1px solid #2b323d;
+    border-radius: 10px;
+}
+
+.stButton > button:hover {
+    background-color: #1a2029;
+    color: #ffffff;
+    border-color: #4b5563;
+}
+
+
+/* ================================
+   DIVIDER
+================================ */
+
+hr {
+    border-color: #202630;
+}
+
+
+/* ================================
+   METRICS
+================================ */
+
+[data-testid="stMetric"] {
+    background-color: #11161d;
+    border: 1px solid #242b35;
+    border-radius: 12px;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer {
+    text-align: center;
+    color: #555e6b;
+    font-size: 13px;
+    margin-top: 30px;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -189,9 +211,10 @@ if "messages" not in st.session_state:
         {
             "role": "assistant",
             "content": (
-                "Hello! 👋 I'm Nova, your virtual assistant.\n\n"
-                "Ask me about Python, AI, cybersecurity, "
-                "cloud computing, Linux, Azure, or programming."
+                "Hello! 👋 I'm Nova AI.\n\n"
+                "I can answer questions about Python, AI, "
+                "cybersecurity, cloud computing, Linux, Azure "
+                "and programming."
             ),
             "time": datetime.now().strftime("%I:%M %p")
         }
@@ -204,30 +227,20 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
 
-    st.markdown(
-        '<div class="side-title">🤖 Nova AI</div>',
-        unsafe_allow_html=True
-    )
+    st.markdown("## 🤖 Nova AI")
 
-    st.markdown(
-        '<div class="side-text">'
-        'A simple chatbot built with Python and Streamlit.'
-        '</div>',
-        unsafe_allow_html=True
-    )
+    st.caption("Simple Python-powered chatbot")
 
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.divider()
 
     st.markdown("### 📊 Chat Statistics")
 
-    total_messages = len(st.session_state.messages)
-
-    user_messages = sum(
+    user_count = sum(
         1 for message in st.session_state.messages
         if message["role"] == "user"
     )
 
-    bot_messages = sum(
+    bot_count = sum(
         1 for message in st.session_state.messages
         if message["role"] == "assistant"
     )
@@ -235,12 +248,12 @@ with st.sidebar:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.metric("You", user_messages)
+        st.metric("You", user_count)
 
     with col2:
-        st.metric("Nova", bot_messages)
+        st.metric("Nova", bot_count)
 
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.divider()
 
     st.markdown("### 💡 Topics")
 
@@ -251,16 +264,16 @@ with st.sidebar:
     st.write("🐧 Linux")
     st.write("🔷 Microsoft Azure")
 
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.divider()
 
-    if st.button("🗑️ Clear Conversation"):
+    if st.button("🗑️ Clear Chat", use_container_width=True):
 
         st.session_state.messages = [
             {
                 "role": "assistant",
                 "content": (
-                    "Conversation cleared. 🧹\n\n"
-                    "Hello again! How can I help you?"
+                    "Chat cleared! 🧹\n\n"
+                    "How can I help you?"
                 ),
                 "time": datetime.now().strftime("%I:%M %p")
             }
@@ -268,16 +281,10 @@ with st.sidebar:
 
         st.rerun()
 
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.divider()
 
-    st.markdown(
-        '<div class="side-text">'
-        '🟢 Online<br>'
-        'Version 1.0<br><br>'
-        'Built with Python 🐍'
-        '</div>',
-        unsafe_allow_html=True
-    )
+    st.caption("🟢 Online")
+    st.caption("Built with Python + Streamlit")
 
 
 # =========================================================
@@ -285,17 +292,15 @@ with st.sidebar:
 # =========================================================
 
 st.markdown("""
-<div class="header">
+<div class="title-container">
 
-    <div class="logo">🤖</div>
+    <h1>🤖 Nova AI</h1>
 
-    <div class="title">Nova AI</div>
-
-    <div class="subtitle">
+    <p>
         Your simple Python-powered virtual assistant
-    </div>
+    </p>
 
-    <div class="status">
+    <div class="online">
         ● Online
     </div>
 
@@ -304,18 +309,18 @@ st.markdown("""
 
 
 # =========================================================
-# WELCOME MESSAGE
+# WELCOME CARD
 # =========================================================
 
 if len(st.session_state.messages) == 1:
 
     st.markdown("""
-    <div class="welcome">
+    <div class="welcome-card">
 
         <h3>👋 Welcome to Nova AI</h3>
 
         <p>
-        Ask a question below to start a conversation.
+            Ask me something to start a conversation.
         </p>
 
     </div>
@@ -335,21 +340,18 @@ if len(st.session_state.messages) == 1:
     with col1:
 
         if st.button("🐍 What is Python?"):
-
             st.session_state.quick_question = "What is Python?"
             st.rerun()
 
     with col2:
 
         if st.button("🤖 What is AI?"):
-
             st.session_state.quick_question = "What is AI?"
             st.rerun()
 
     with col3:
 
         if st.button("🔐 What is Cybersecurity?"):
-
             st.session_state.quick_question = "What is cybersecurity?"
             st.rerun()
 
@@ -364,12 +366,11 @@ def get_response(message):
 
 
     # Greetings
-    if any(word in message for word in
-           ["hello", "hi", "hey", "hii", "helo"]):
+    if message in ["hello", "hi", "hey", "hii", "helo"]:
 
         return (
             "Hello! 👋\n\n"
-            "Nice to meet you! What would you like to learn about?"
+            "Nice to meet you! How can I help you today?"
         )
 
 
@@ -378,7 +379,7 @@ def get_response(message):
 
         return (
             "I'm doing great! 🤖\n\n"
-            "I'm ready to answer your questions."
+            "I'm ready to help you."
         )
 
 
@@ -395,7 +396,7 @@ def get_response(message):
     elif "what can you do" in message:
 
         return (
-            "I can help with several basic topics:\n\n"
+            "I can help you with:\n\n"
             "🐍 Python\n"
             "🤖 Artificial Intelligence\n"
             "🔐 Cybersecurity\n"
@@ -412,13 +413,13 @@ def get_response(message):
         return (
             "🐍 **Python** is a popular programming language "
             "that is simple to learn and very powerful.\n\n"
-            "**Common uses:**\n"
+            "**Uses of Python:**\n"
             "• Web development\n"
             "• Automation\n"
             "• Data science\n"
-            "• AI and machine learning\n"
+            "• Artificial Intelligence\n"
             "• Cybersecurity\n"
-            "• Scripting"
+            "• Machine learning"
         )
 
 
@@ -426,10 +427,10 @@ def get_response(message):
     elif "streamlit" in message:
 
         return (
-            "🎈 **Streamlit** is a Python framework used to create "
-            "interactive web applications.\n\n"
-            "It lets you build apps using Python without needing "
-            "to write a full frontend from scratch."
+            "🎈 **Streamlit** is a Python framework used to "
+            "build interactive web applications.\n\n"
+            "It allows you to create web apps using Python "
+            "without building the entire frontend manually."
         )
 
 
@@ -441,9 +442,9 @@ def get_response(message):
     ):
 
         return (
-            "🤖 **Artificial Intelligence (AI)** is technology that "
-            "allows computers to perform tasks that normally require "
-            "human intelligence.\n\n"
+            "🤖 **Artificial Intelligence (AI)** is technology "
+            "that allows computers to perform tasks that normally "
+            "require human intelligence.\n\n"
             "**Examples:**\n"
             "• Chatbots\n"
             "• Voice assistants\n"
@@ -461,7 +462,7 @@ def get_response(message):
 
         return (
             "🔐 **Cybersecurity** is the practice of protecting "
-            "computers, networks, applications, and data from "
+            "systems, networks, applications and data from "
             "cyber threats.\n\n"
             "**Common threats:**\n"
             "• Phishing\n"
@@ -476,12 +477,15 @@ def get_response(message):
     elif "cloud" in message:
 
         return (
-            "☁️ **Cloud computing** means using computing resources "
-            "such as servers, storage, and databases over the internet.\n\n"
-            "**Popular cloud platforms:**\n"
-            "• Microsoft Azure\n"
-            "• Amazon Web Services\n"
-            "• Google Cloud"
+            "☁️ **Cloud computing** means using computing "
+            "resources over the internet.\n\n"
+            "Examples include:\n"
+            "• Virtual machines\n"
+            "• Cloud storage\n"
+            "• Databases\n"
+            "• Networking\n"
+            "• Cloud security\n\n"
+            "Popular platforms include Azure, AWS and Google Cloud."
         )
 
 
@@ -507,10 +511,8 @@ def get_response(message):
 
         return (
             "🐧 **Linux** is an open-source operating system "
-            "widely used for servers, cloud computing, development, "
-            "and cybersecurity.\n\n"
-            "Popular distributions include Ubuntu, Debian, Fedora, "
-            "and Kali Linux."
+            "widely used for servers, cloud computing, software "
+            "development and cybersecurity."
         )
 
 
@@ -518,10 +520,10 @@ def get_response(message):
     elif "programming" in message or "coding" in message:
 
         return (
-            "💻 **Programming** is the process of writing instructions "
+            "💻 **Programming** means writing instructions "
             "that tell a computer what to do.\n\n"
-            "Some popular programming languages are Python, Java, "
-            "JavaScript, C, C++, and C#."
+            "Popular languages include Python, Java, JavaScript, "
+            "C, C++ and C#."
         )
 
 
@@ -535,7 +537,7 @@ def get_response(message):
 
 
     # Goodbye
-    elif message in ["bye", "goodbye", "see you", "see you later"]:
+    elif message in ["bye", "goodbye", "see you"]:
 
         return (
             "Goodbye! 👋\n\n"
@@ -564,7 +566,7 @@ def get_response(message):
         return (
             "🤔 I don't know the answer to that yet.\n\n"
             "Try asking me about **Python, AI, cybersecurity, "
-            "cloud computing, Linux, Azure, or programming**."
+            "cloud computing, Linux, Azure or programming**."
         )
 
 
@@ -582,7 +584,7 @@ for message in st.session_state.messages:
 
 
 # =========================================================
-# HANDLE QUICK QUESTION
+# INPUT
 # =========================================================
 
 if "quick_question" in st.session_state:
@@ -594,12 +596,12 @@ if "quick_question" in st.session_state:
 else:
 
     user_input = st.chat_input(
-        "💬 Message Nova AI..."
+        "Message Nova AI..."
     )
 
 
 # =========================================================
-# PROCESS USER MESSAGE
+# PROCESS MESSAGE
 # =========================================================
 
 if user_input:
@@ -607,33 +609,32 @@ if user_input:
     current_time = datetime.now().strftime("%I:%M %p")
 
 
-    # User message
-    st.session_state.messages.append(
-        {
-            "role": "user",
-            "content": user_input,
-            "time": current_time
-        }
-    )
+    # Save user message
+    st.session_state.messages.append({
+        "role": "user",
+        "content": user_input,
+        "time": current_time
+    })
 
 
+    # Display user message
     with st.chat_message("user"):
 
         st.markdown(user_input)
         st.caption(current_time)
 
 
-    # Bot response
+    # Get response
     response = get_response(user_input)
 
 
+    # Display bot response
     with st.chat_message("assistant"):
 
         placeholder = st.empty()
 
         displayed_text = ""
 
-        # Simple typing animation
         for word in response.split():
 
             displayed_text += word + " "
@@ -645,11 +646,20 @@ if user_input:
         st.caption(current_time)
 
 
-    # Save response
-    st.session_state.messages.append(
-        {
-            "role": "assistant",
-            "content": response,
-            "time": current_time
-        }
-    )
+    # Save bot response
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": response,
+        "time": current_time
+    })
+
+
+# =========================================================
+# FOOTER
+# =========================================================
+
+st.markdown("""
+<div class="footer">
+    Nova AI • Built with Python & Streamlit
+</div>
+""", unsafe_allow_html=True)
