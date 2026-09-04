@@ -1,100 +1,205 @@
 import streamlit as st
+from datetime import datetime
 
-# Page settings
+# -----------------------------
+# Page Configuration
+# -----------------------------
+
 st.set_page_config(
-    page_title="My Chatbot",
+    page_title="AI Chatbot",
     page_icon="🤖",
     layout="centered"
 )
 
-# Title
-st.title("🤖 My Chatbot")
-st.write("Hello! I'm a simple chatbot. Ask me something below!")
+# -----------------------------
+# App Title
+# -----------------------------
 
-# Chat input
-user_input = st.chat_input("Type your message here...")
+st.title("🤖 AI Chatbot")
+st.caption("A simple chatbot built with Python and Streamlit")
+
+# -----------------------------
+# Chat History
+# -----------------------------
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# -----------------------------
+# Sidebar
+# -----------------------------
+
+with st.sidebar:
+    st.header("⚙️ Settings")
+
+    st.write("### About")
+    st.write(
+        "This is a simple rule-based chatbot "
+        "created using Python and Streamlit."
+    )
+
+    st.write("### Features")
+    st.write("• Chat interface")
+    st.write("• Chat history")
+    st.write("• Multiple responses")
+    st.write("• Clear chat option")
+
+    if st.button("🗑️ Clear Chat"):
+        st.session_state.messages = []
+        st.rerun()
+
+# -----------------------------
+# Display Previous Messages
+# -----------------------------
+
+for message in st.session_state.messages:
+
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+        if "time" in message:
+            st.caption(message["time"])
+
+# -----------------------------
+# Chat Input
+# -----------------------------
+
+user_input = st.chat_input("💬 Type your message...")
 
 if user_input:
 
-    # Display user's message
-    st.chat_message("user").write(user_input)
+    # Current time
+    current_time = datetime.now().strftime("%I:%M %p")
+
+    # Display user message
+    with st.chat_message("user"):
+        st.write(user_input)
+        st.caption(current_time)
+
+    # Save user message
+    st.session_state.messages.append({
+        "role": "user",
+        "content": user_input,
+        "time": current_time
+    })
 
     # Convert message to lowercase
     message = user_input.lower().strip()
 
-    # Greetings
+    # -----------------------------
+    # Chatbot Responses
+    # -----------------------------
+
     if message in ["hello", "hi", "hey", "hii", "helo"]:
-        response = "Hello! 👋 Nice to meet you. How can I help you today?"
-
-    # How are you
-    elif message in ["how are you", "how are you?"]:
-        response = "I'm doing great! 🤖 Thanks for asking. How are you?"
-
-    # Name
-    elif message in ["what is your name?", "what's your name?", "your name?"]:
-        response = "I'm My Chatbot 🤖, a chatbot built using Python and Streamlit."
-
-    # Creator
-    elif message in ["who created you?", "who made you?", "who is your creator?"]:
-        response = "I was created by a developer using Python and Streamlit!"
-
-    # Capabilities
-    elif message in ["what can you do?", "what do you do?"]:
         response = (
-            "I can have simple conversations, answer predefined questions, "
-            "respond to greetings, and handle basic messages."
+            "Hello! 👋 Nice to meet you! "
+            "How can I help you today?"
         )
 
-    # Python
+    elif "how are you" in message:
+        response = (
+            "I'm doing great! 🤖 "
+            "Thanks for asking. How are you doing?"
+        )
+
+    elif "your name" in message:
+        response = (
+            "I'm AI Chatbot 🤖. "
+            "I was built using Python and Streamlit."
+        )
+
+    elif "who are you" in message:
+        response = (
+            "I'm a simple rule-based chatbot. "
+            "I can understand certain messages and respond to them."
+        )
+
+    elif "who created you" in message or "who made you" in message:
+        response = (
+            "I was created by a developer using "
+            "Python and Streamlit. 💻"
+        )
+
+    elif "what can you do" in message:
+        response = (
+            "I can have simple conversations, answer basic questions, "
+            "talk about Python and Streamlit, and respond to common messages."
+        )
+
     elif "python" in message:
         response = (
-            "Python is a popular programming language known for being "
-            "simple, powerful, and beginner-friendly. 🐍"
+            "Python 🐍 is a popular programming language. "
+            "It is easy to learn and is used for web development, "
+            "automation, data science, AI, and many other things."
         )
 
-    # Streamlit
     elif "streamlit" in message:
         response = (
-            "Streamlit is a Python framework that makes it easy to build "
-            "interactive web apps without needing to learn HTML, CSS, or JavaScript."
+            "Streamlit is a Python framework that lets you "
+            "quickly create interactive web applications."
         )
 
-    # Programming
-    elif "programming" in message or "coding" in message:
+    elif "coding" in message or "programming" in message:
         response = (
-            "Programming is the process of giving instructions to a computer "
-            "so it can perform specific tasks. 💻"
+            "Programming means writing instructions that tell "
+            "a computer what to do. 💻"
         )
 
-    # College
-    elif "college" in message:
+    elif "ai" in message or "artificial intelligence" in message:
         response = (
-            "College is a great place to learn, build projects, make friends, "
-            "and occasionally wonder why assignments exist. 😄"
+            "Artificial Intelligence, or AI, allows computers "
+            "to perform tasks that normally require human intelligence."
         )
 
-    # Thanks
+    elif "cloud" in message:
+        response = (
+            "Cloud computing allows you to use computing resources "
+            "such as servers, storage, and databases over the internet. ☁️"
+        )
+
+    elif "cybersecurity" in message or "cyber security" in message:
+        response = (
+            "Cybersecurity is the practice of protecting computers, "
+            "networks, applications, and data from cyber threats. 🔐"
+        )
+
     elif "thank you" in message or "thanks" in message:
-        response = "You're welcome! 😊 I'm happy to help."
-
-    # Help
-    elif message in ["help", "i need help", "can you help me?"]:
         response = (
-            "Sure! 😊 Ask me about Python, Streamlit, programming, "
-            "or just start a conversation."
+            "You're welcome! 😊 "
+            "I'm always happy to help."
         )
 
-    # Goodbye
-    elif message in ["bye", "goodbye", "see you", "see you later"]:
-        response = "Goodbye! 👋 Have a great day!"
+    elif "help" in message:
+        response = (
+            "Sure! 😊 You can ask me about Python, Streamlit, "
+            "AI, cloud computing, cybersecurity, or programming."
+        )
 
-    # Default response
+    elif message in ["bye", "goodbye", "see you"]:
+        response = (
+            "Goodbye! 👋 "
+            "Thanks for chatting with me. Have a great day!"
+        )
+
     else:
         response = (
-            "Hmm, I don't have an answer for that yet. 🤔 "
-            "Try asking me about Python, Streamlit, programming, "
-            "or one of the things I know!"
+            "I'm still learning! 🤔 "
+            "I don't understand that question yet. "
+            "Try asking me about Python, Streamlit, AI, "
+            "cloud computing, or cybersecurity."
         )
 
-    # Display chatbot response
-    st.chat_message("assistant").write(response)
+    # -----------------------------
+    # Display Bot Response
+    # -----------------------------
+
+    with st.chat_message("assistant"):
+        st.write(response)
+        st.caption(current_time)
+
+    # Save bot response
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": response,
+        "time": current_time
+    })
