@@ -1,5 +1,4 @@
 import streamlit as st
-import time
 from datetime import datetime
 
 
@@ -8,190 +7,261 @@ from datetime import datetime
 # =========================================================
 
 st.set_page_config(
-    page_title="Bren's Jarvis",
-    page_icon="🤖",
+    page_title="Bren's Jarvis - Course Registration",
+    page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 
 # =========================================================
-# CUSTOM CSS
+# DARK THEME
 # =========================================================
 
 st.markdown("""
 <style>
 
-    /* =========================
-       GLOBAL
-    ========================= */
+.stApp {
+    background-color: #080b10;
+    color: #ffffff;
+}
 
-    .stApp {
-        background: #080b10;
-        color: #ffffff;
-    }
-
-    .main .block-container {
-        max-width: 950px;
-        padding-top: 35px;
-        padding-bottom: 120px;
-    }
+.block-container {
+    max-width: 1100px;
+    padding-top: 30px;
+    padding-bottom: 100px;
+}
 
 
-    /* =========================
-       SIDEBAR
-    ========================= */
+/* SIDEBAR */
 
-    section[data-testid="stSidebar"] {
-        background: #0b0f15;
-        border-right: 1px solid #202630;
-    }
+section[data-testid="stSidebar"] {
+    background-color: #0b0f15;
+    border-right: 1px solid #202630;
+}
 
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3 {
-        color: #ffffff;
-    }
+section[data-testid="stSidebar"] * {
+    color: #e5e7eb;
+}
 
 
-    /* =========================
-       MAIN TITLE
-    ========================= */
+/* HEADER */
 
-    .main-title {
-        text-align: center;
-        font-size: 44px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
+.main-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 10px;
+}
 
-    .main-subtitle {
-        text-align: center;
-        color: #8b95a3;
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
+.main-subtitle {
+    text-align: center;
+    color: #8b95a3;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
 
-    .online-text {
-        text-align: center;
-        color: #4ade80;
-        font-size: 14px;
-        margin-bottom: 30px;
-    }
+.status {
+    text-align: center;
+    color: #4ade80;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
 
 
-    /* =========================
-       WELCOME BOX
-    ========================= */
+/* WELCOME */
 
-    .welcome-box {
-        background: #10161e;
-        border: 1px solid #242d39;
-        border-radius: 16px;
-        padding: 25px;
-        text-align: center;
-        margin-bottom: 25px;
-    }
+.welcome-box {
+    background-color: #10161e;
+    border: 1px solid #242d39;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-    .welcome-box h2 {
-        color: #ffffff;
-        margin-bottom: 8px;
-    }
+.welcome-box h2 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
 
-    .welcome-box p {
-        color: #8b95a3;
-        margin: 0;
-    }
+.welcome-box p {
+    color: #8993a1;
+}
 
 
-    /* =========================
-       CHAT MESSAGES
-    ========================= */
+/* COURSE CARDS */
 
-    [data-testid="stChatMessage"] {
-        background: #10161e;
-        border: 1px solid #222b37;
-        border-radius: 15px;
-        margin-bottom: 12px;
-    }
+.course-card {
+    background-color: #10161e;
+    border: 1px solid #242d39;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 12px;
+}
 
+.course-card h4 {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
 
-    /* =========================
-       CHAT INPUT
-    ========================= */
-
-    [data-testid="stChatInput"] {
-        background: #080b10;
-    }
-
-    [data-testid="stChatInput"] textarea {
-        background-color: #111821 !important;
-        color: white !important;
-        border: 1px solid #303b49 !important;
-        border-radius: 14px !important;
-    }
-
-    [data-testid="stChatInput"] textarea::placeholder {
-        color: #6b7583 !important;
-    }
+.course-card p {
+    color: #8b95a3;
+}
 
 
-    /* =========================
-       BUTTONS
-    ========================= */
+/* CHAT */
 
-    .stButton button {
-        background: #10161e;
-        color: #d8dee8;
-        border: 1px solid #293442;
-        border-radius: 10px;
-        min-height: 42px;
-    }
-
-    .stButton button:hover {
-        background: #171e27;
-        color: white;
-        border-color: #4a5666;
-    }
+[data-testid="stChatMessage"] {
+    background-color: #10161e;
+    border: 1px solid #222b37;
+    border-radius: 15px;
+    margin-bottom: 12px;
+}
 
 
-    /* =========================
-       METRICS
-    ========================= */
+/* INPUT */
 
-    [data-testid="stMetric"] {
-        background: #10161e;
-        border: 1px solid #242d39;
-        border-radius: 12px;
-        padding: 12px;
-    }
+[data-testid="stChatInput"] {
+    background-color: #080b10;
+}
 
+[data-testid="stChatInput"] textarea {
+    background-color: #111821 !important;
+    color: #ffffff !important;
+    border: 1px solid #303b49 !important;
+    border-radius: 14px !important;
+}
 
-    /* =========================
-       DIVIDERS
-    ========================= */
-
-    hr {
-        border-color: #202630;
-    }
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #697586 !important;
+}
 
 
-    /* =========================
-       FOOTER
-    ========================= */
+/* BUTTONS */
 
-    .footer {
-        text-align: center;
-        color: #505a68;
-        font-size: 12px;
-        margin-top: 35px;
-        padding-bottom: 20px;
-    }
+.stButton > button {
+    background-color: #10161e;
+    color: #d8dee8;
+    border: 1px solid #293442;
+    border-radius: 10px;
+    min-height: 42px;
+}
+
+.stButton > button:hover {
+    background-color: #171e27;
+    color: #ffffff;
+    border-color: #4a5666;
+}
+
+
+/* METRICS */
+
+[data-testid="stMetric"] {
+    background-color: #10161e;
+    border: 1px solid #242d39;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    color: #505a68;
+    font-size: 12px;
+    margin-top: 40px;
+}
 
 </style>
 """, unsafe_allow_html=True)
+
+
+# =========================================================
+# SAMPLE COURSE DATABASE
+# =========================================================
+
+courses = {
+
+    "BCS301": {
+        "name": "Database Management Systems",
+        "credits": 4,
+        "type": "Core",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "None",
+        "day": "Monday",
+        "time": "09:00 - 10:00"
+    },
+
+    "BCS302": {
+        "name": "Computer Networks",
+        "credits": 4,
+        "type": "Core",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "None",
+        "day": "Tuesday",
+        "time": "10:00 - 11:00"
+    },
+
+    "BCS303": {
+        "name": "Python Programming",
+        "credits": 4,
+        "type": "Core",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "Basic Programming",
+        "day": "Wednesday",
+        "time": "09:00 - 10:00"
+    },
+
+    "BCS304": {
+        "name": "Cybersecurity Fundamentals",
+        "credits": 3,
+        "type": "Elective",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "None",
+        "day": "Tuesday",
+        "time": "11:00 - 12:00"
+    },
+
+    "BCS305": {
+        "name": "Cloud Computing",
+        "credits": 3,
+        "type": "Elective",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "Computer Networks",
+        "day": "Thursday",
+        "time": "10:00 - 11:00"
+    },
+
+    "BCS306": {
+        "name": "Artificial Intelligence",
+        "credits": 3,
+        "type": "Elective",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "Python Programming",
+        "day": "Friday",
+        "time": "11:00 - 12:00"
+    },
+
+    "BCS307": {
+        "name": "Web Development",
+        "credits": 3,
+        "type": "Elective",
+        "semester": 3,
+        "department": "Computer Applications",
+        "prerequisite": "Basic Programming",
+        "day": "Thursday",
+        "time": "11:00 - 12:00"
+    }
+}
 
 
 # =========================================================
@@ -204,13 +274,71 @@ if "messages" not in st.session_state:
         {
             "role": "assistant",
             "content": (
-                "Good to see you, sir. 👋\n\n"
-                "I am **Bren's Jarvis**, your personal virtual "
-                "assistant. I am ready to assist you."
+                "Hello, student! 👋\n\n"
+                "I'm **Bren's Jarvis**, your Course Registration Assistant. 🎓\n\n"
+                "I can help you explore courses, understand prerequisites, "
+                "check credits, find electives and plan your registration."
             ),
             "time": datetime.now().strftime("%I:%M %p")
         }
     ]
+
+
+if "selected_courses" not in st.session_state:
+    st.session_state.selected_courses = []
+
+
+# =========================================================
+# COURSE FUNCTIONS
+# =========================================================
+
+def course_list():
+
+    text = "📚 **Available Courses**\n\n"
+
+    for code, course in courses.items():
+
+        text += (
+            f"**{code} - {course['name']}**\n"
+            f"Credits: {course['credits']} | "
+            f"Type: {course['type']} | "
+            f"Day: {course['day']} | "
+            f"Time: {course['time']}\n\n"
+        )
+
+    return text
+
+
+def elective_list():
+
+    text = "🎯 **Available Electives**\n\n"
+
+    for code, course in courses.items():
+
+        if course["type"] == "Elective":
+
+            text += (
+                f"**{code} - {course['name']}**\n"
+                f"Credits: {course['credits']} | "
+                f"Prerequisite: {course['prerequisite']}\n\n"
+            )
+
+    return text
+
+
+def find_course(message):
+
+    for code, course in courses.items():
+
+        if code.lower() in message:
+
+            return code, course
+
+        if course["name"].lower() in message:
+
+            return code, course
+
+    return None, None
 
 
 # =========================================================
@@ -222,296 +350,321 @@ def get_response(message):
     message = message.lower().strip()
 
 
-    # Greetings
+    # GREETING
+
     if message in [
         "hello",
         "hi",
         "hey",
         "hii",
-        "helo",
-        "good morning",
-        "good afternoon",
-        "good evening"
+        "helo"
     ]:
 
         return (
-            "Good to see you, sir. 👋\n\n"
-            "Bren's Jarvis is online and ready to assist."
+            "Hello! 👋\n\n"
+            "Bren's Jarvis is ready to help with your "
+            "course registration."
         )
 
 
-    # How are you
-    if "how are you" in message:
+    # NAME
+
+    if "your name" in message or "who are you" in message:
 
         return (
-            "I'm functioning perfectly, sir. 🤖\n\n"
-            "All systems are operational."
+            "I'm **Bren's Jarvis** 🤖🎓.\n\n"
+            "I'm your **Course Registration Assistant**. "
+            "I help students choose and understand their courses."
         )
 
 
-    # Name
+    # WHAT CAN YOU DO
+
+    if "what can you do" in message:
+
+        return (
+            "I can help you with:\n\n"
+            "📚 Find available courses\n"
+            "🎯 Find electives\n"
+            "✅ Check prerequisites\n"
+            "📊 Calculate credits\n"
+            "🕐 Check course timings\n"
+            "📋 Explain registration steps\n"
+            "💡 Suggest courses based on your interests\n"
+            "📝 Build a sample course plan"
+        )
+
+
+    # AVAILABLE COURSES
+
     if (
-        "your name" in message
-        or "who are you" in message
-        or "what are you" in message
+        "available courses" in message
+        or "courses available" in message
+        or "list courses" in message
+        or "show courses" in message
     ):
 
-        return (
-            "I am **Bren's Jarvis** 🤖.\n\n"
-            "I'm a virtual assistant built using "
-            "**Python and Streamlit**."
-        )
+        return course_list()
 
 
-    # Creator
+    # ELECTIVES
+
     if (
-        "who made you" in message
-        or "who created you" in message
-        or "who built you" in message
+        "elective" in message
+        or "electives" in message
     ):
 
-        return (
-            "I was built using Python and Streamlit. 💻\n\n"
-            "My current version uses predefined responses "
-            "rather than a real AI model."
-        )
+        return elective_list()
 
 
-    # Capabilities
+    # PREREQUISITE
+
     if (
-        "what can you do" in message
-        or "what do you do" in message
-        or "capabilities" in message
+        "prerequisite" in message
+        or "prerequisite" in message
+        or "requirement" in message
     ):
 
+        code, course = find_course(message)
+
+        if course:
+
+            return (
+                f"📘 **{course['name']} ({code})**\n\n"
+                f"Prerequisite: **{course['prerequisite']}**"
+            )
+
         return (
-            "I can currently help you with:\n\n"
-            "🐍 **Python**\n"
-            "🤖 **Artificial Intelligence**\n"
-            "🔐 **Cybersecurity**\n"
-            "☁️ **Cloud Computing**\n"
-            "🔷 **Microsoft Azure**\n"
-            "🐧 **Linux**\n"
-            "🗄️ **Databases**\n"
-            "🌐 **Web Development**\n"
-            "💻 **Programming**"
+            "Please mention the course code or course name.\n\n"
+            "For example:\n"
+            "**What is the prerequisite for BCS305?**"
         )
 
 
-    # Python
+    # COURSE DETAILS
+
+    if (
+        "details" in message
+        or "information about" in message
+        or "tell me about" in message
+    ):
+
+        code, course = find_course(message)
+
+        if course:
+
+            return (
+                f"📘 **{course['name']} ({code})**\n\n"
+                f"**Credits:** {course['credits']}\n\n"
+                f"**Type:** {course['type']}\n\n"
+                f"**Semester:** {course['semester']}\n\n"
+                f"**Department:** {course['department']}\n\n"
+                f"**Prerequisite:** {course['prerequisite']}\n\n"
+                f"**Schedule:** {course['day']}, {course['time']}"
+            )
+
+        return (
+            "Please provide a course code.\n\n"
+            "Example: **Tell me about BCS305**"
+        )
+
+
+    # CREDITS
+
+    if (
+        "credits" in message
+        or "credit" in message
+    ):
+
+        code, course = find_course(message)
+
+        if course:
+
+            return (
+                f"📊 **{course['name']}** carries "
+                f"**{course['credits']} credits**."
+            )
+
+        total = sum(
+            courses[c]["credits"]
+            for c in st.session_state.selected_courses
+        )
+
+        if st.session_state.selected_courses:
+
+            return (
+                f"Your currently selected courses carry "
+                f"**{total} credits** in total."
+            )
+
+        return (
+            "You haven't selected any courses yet.\n\n"
+            "Use the **Course Planner** in the sidebar."
+        )
+
+
+    # PYTHON
+
     if "python" in message:
 
         return (
-            "🐍 **Python** is a popular programming language "
-            "known for its simple and readable syntax.\n\n"
-            "**Python is used for:**\n\n"
-            "• Web development\n"
-            "• Automation\n"
-            "• Artificial Intelligence\n"
-            "• Machine learning\n"
-            "• Data science\n"
-            "• Cybersecurity\n"
-            "• Scripting"
+            "🐍 **Python Programming** is a core programming "
+            "course in this sample catalog.\n\n"
+            "It carries **4 credits**.\n\n"
+            "It is also a prerequisite for Artificial Intelligence."
         )
 
 
-    # Streamlit
-    if "streamlit" in message:
+    # CYBERSECURITY
 
-        return (
-            "🎈 **Streamlit** is a Python framework for building "
-            "interactive web applications.\n\n"
-            "It allows you to create web apps using Python "
-            "without manually building an entire frontend."
-        )
-
-
-    # AI
-    if (
-        "artificial intelligence" in message
-        or "what is ai" in message
-        or message == "ai"
-    ):
-
-        return (
-            "🤖 **Artificial Intelligence (AI)** is technology "
-            "that allows computers to perform tasks that normally "
-            "require human intelligence.\n\n"
-            "**Examples:**\n\n"
-            "• Chatbots\n"
-            "• Voice assistants\n"
-            "• Image recognition\n"
-            "• Recommendation systems\n"
-            "• Generative AI"
-        )
-
-
-    # Cybersecurity
     if (
         "cybersecurity" in message
         or "cyber security" in message
     ):
 
         return (
-            "🔐 **Cybersecurity** is the practice of protecting "
-            "systems, networks, applications and data from "
-            "cyber threats.\n\n"
-            "**Common threats:**\n\n"
-            "• Phishing\n"
-            "• Malware\n"
-            "• Ransomware\n"
-            "• Password attacks\n"
-            "• Social engineering"
+            "🔐 **Cybersecurity Fundamentals** is an elective "
+            "focused on basic security concepts.\n\n"
+            "Credits: **3**\n\n"
+            "Prerequisite: **None**"
         )
 
 
-    # Cloud
+    # CLOUD
+
+    if "cloud" in message:
+
+        return (
+            "☁️ **Cloud Computing** is an elective focused "
+            "on cloud platforms and services.\n\n"
+            "Credits: **3**\n\n"
+            "Prerequisite: **Computer Networks**"
+        )
+
+
+    # AI
+
     if (
-        "cloud computing" in message
-        or "what is cloud" in message
-        or message == "cloud"
+        "artificial intelligence" in message
+        or "what is ai" in message
     ):
 
         return (
-            "☁️ **Cloud computing** means using computing "
-            "resources over the internet.\n\n"
-            "**Examples:**\n\n"
-            "• Virtual machines\n"
-            "• Cloud storage\n"
-            "• Databases\n"
-            "• Networking\n"
-            "• Security\n\n"
-            "Popular platforms include Azure, AWS and "
-            "Google Cloud."
+            "🤖 **Artificial Intelligence** is an elective "
+            "focused on AI concepts and applications.\n\n"
+            "Credits: **3**\n\n"
+            "Prerequisite: **Python Programming**"
         )
 
 
-    # Azure
-    if "azure" in message:
+    # REGISTRATION PROCESS
 
-        return (
-            "🔷 **Microsoft Azure** is Microsoft's cloud "
-            "computing platform.\n\n"
-            "Azure provides services for:\n\n"
-            "• Virtual machines\n"
-            "• Storage\n"
-            "• Networking\n"
-            "• Databases\n"
-            "• Security\n"
-            "• Artificial Intelligence\n"
-            "• Monitoring"
-        )
-
-
-    # Linux
-    if "linux" in message:
-
-        return (
-            "🐧 **Linux** is an open-source operating system "
-            "widely used in servers, cloud computing, software "
-            "development and cybersecurity.\n\n"
-            "Popular distributions include Ubuntu, Debian, "
-            "Fedora and Kali Linux."
-        )
-
-
-    # Database
     if (
-        "database" in message
-        or "dbms" in message
+        "how to register" in message
+        or "registration process" in message
+        or "register for course" in message
     ):
 
         return (
-            "🗄️ A **database** is used to store and organize "
-            "data so it can be easily accessed and managed.\n\n"
-            "**Examples:**\n\n"
-            "• MySQL\n"
-            "• PostgreSQL\n"
-            "• SQLite\n"
-            "• Microsoft SQL Server"
+            "📋 **Typical Course Registration Process**\n\n"
+            "**1.** Check the available courses.\n\n"
+            "**2.** Review prerequisites.\n\n"
+            "**3.** Check your timetable for conflicts.\n\n"
+            "**4.** Select the required core courses.\n\n"
+            "**5.** Choose your electives.\n\n"
+            "**6.** Check your total credits.\n\n"
+            "**7.** Submit your registration.\n\n"
+            "Always follow your college's official registration "
+            "rules and deadlines."
         )
 
 
-    # Web development
+    # RECOMMENDATION
+
     if (
-        "web development" in message
-        or "website" in message
+        "recommend" in message
+        or "suggest" in message
+        or "which course" in message
+    ):
+
+        if (
+            "cyber" in message
+            or "security" in message
+        ):
+
+            return (
+                "🔐 If you're interested in cybersecurity, "
+                "I'd recommend **Cybersecurity Fundamentals**.\n\n"
+                "It is a 3-credit elective with no prerequisite."
+            )
+
+        if (
+            "cloud" in message
+            or "azure" in message
+        ):
+
+            return (
+                "☁️ If you're interested in cloud computing, "
+                "I'd recommend **Cloud Computing**.\n\n"
+                "It carries 3 credits and requires "
+                "Computer Networks."
+            )
+
+        if "ai" in message:
+
+            return (
+                "🤖 If you're interested in AI, "
+                "I'd recommend **Artificial Intelligence**.\n\n"
+                "You'll need Python Programming as a prerequisite."
+            )
+
+        return (
+            "I can recommend a course based on your interest.\n\n"
+            "Try:\n"
+            "• **Recommend a cybersecurity course**\n"
+            "• **Recommend a cloud course**\n"
+            "• **Recommend an AI course**"
+        )
+
+
+    # THANK YOU
+
+    if (
+        "thanks" in message
+        or "thank you" in message
     ):
 
         return (
-            "🌐 **Web development** is the process of creating "
-            "websites and web applications.\n\n"
-            "**Common technologies:**\n\n"
-            "• HTML\n"
-            "• CSS\n"
-            "• JavaScript\n"
-            "• Python\n"
-            "• Flask\n"
-            "• Django"
+            "You're welcome! 😊\n\n"
+            "Happy to help with your registration."
         )
 
 
-    # Programming
-    if (
-        "programming" in message
-        or "coding" in message
-    ):
+    # GOODBYE
 
-        return (
-            "💻 **Programming** is the process of writing "
-            "instructions that tell a computer what to do.\n\n"
-            "Popular languages include Python, Java, "
-            "JavaScript, C, C++ and C#."
-        )
-
-
-    # Thanks
-    if (
-        "thank you" in message
-        or "thanks" in message
-        or "thank" in message
-    ):
-
-        return (
-            "You're welcome, sir. 😊\n\n"
-            "Always happy to assist."
-        )
-
-
-    # Help
-    if message == "help":
-
-        return (
-            "Certainly, sir. Here are some things you can ask:\n\n"
-            "🐍 What is Python?\n"
-            "🤖 What is AI?\n"
-            "🔐 What is cybersecurity?\n"
-            "☁️ What is cloud computing?\n"
-            "🔷 What is Azure?\n"
-            "🐧 What is Linux?\n"
-            "🗄️ What is a database?"
-        )
-
-
-    # Goodbye
     if message in [
         "bye",
-        "goodbye",
-        "see you",
-        "see you later"
+        "goodbye"
     ]:
 
         return (
-            "Goodbye, sir. 👋\n\n"
-            "Bren's Jarvis will be here when you return."
+            "Goodbye! 👋\n\n"
+            "Good luck with your course registration."
         )
 
 
-    # Default
+    # DEFAULT
+
     return (
-        "I'm afraid I don't have an answer for that yet, sir. 🤔\n\n"
-        "Try asking me about **Python, AI, cybersecurity, "
-        "cloud computing, Azure, Linux, databases or programming**."
+        "I'm not sure about that yet. 🤔\n\n"
+        "Try asking me something like:\n\n"
+        "📚 **Show available courses**\n"
+        "🎯 **Show electives**\n"
+        "📘 **Tell me about BCS305**\n"
+        "✅ **What is the prerequisite for BCS306?**\n"
+        "📊 **How many credits is BCS301?**\n"
+        "💡 **Recommend a cybersecurity course**\n"
+        "📋 **How do I register for a course?**"
     )
 
 
@@ -521,51 +674,106 @@ def get_response(message):
 
 with st.sidebar:
 
-    st.title("🤖 Bren's Jarvis")
+    st.title("🎓 Bren's Jarvis")
 
-    st.caption("Your personal virtual assistant")
-
-    st.divider()
-
-    st.subheader("📊 Conversation")
-
-    user_count = sum(
-        1
-        for message in st.session_state.messages
-        if message["role"] == "user"
-    )
-
-    jarvis_count = sum(
-        1
-        for message in st.session_state.messages
-        if message["role"] == "assistant"
-    )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.metric("You", user_count)
-
-    with col2:
-        st.metric("Jarvis", jarvis_count)
+    st.caption("Course Registration Assistant")
 
     st.divider()
 
-    st.subheader("🧠 Knowledge")
+    st.subheader("👨‍🎓 Student")
 
-    st.write("🐍 Python")
-    st.write("🤖 Artificial Intelligence")
-    st.write("🔐 Cybersecurity")
-    st.write("☁️ Cloud Computing")
-    st.write("🔷 Microsoft Azure")
-    st.write("🐧 Linux")
-    st.write("🗄️ Databases")
-    st.write("🌐 Web Development")
+    student_name = st.text_input(
+        "Student Name",
+        placeholder="Enter your name"
+    )
+
+    semester = st.selectbox(
+        "Semester",
+        [
+            "Semester 1",
+            "Semester 2",
+            "Semester 3",
+            "Semester 4",
+            "Semester 5",
+            "Semester 6"
+        ]
+    )
+
+    st.divider()
+
+    st.subheader("📚 Course Planner")
+
+    selected = st.multiselect(
+        "Select courses",
+        list(courses.keys()),
+        format_func=lambda code:
+        f"{code} - {courses[code]['name']}"
+    )
+
+    st.session_state.selected_courses = selected
+
+    total_credits = sum(
+        courses[code]["credits"]
+        for code in selected
+    )
+
+    st.metric(
+        "Total Credits",
+        total_credits
+    )
+
+    if total_credits > 24:
+
+        st.error("⚠️ Credit load is high.")
+
+    elif total_credits > 0:
+
+        st.success("✅ Credit load calculated.")
+
+    st.divider()
+
+    st.subheader("🔎 Quick Tools")
+
+    if st.button(
+        "📚 View All Courses",
+        use_container_width=True
+    ):
+
+        st.session_state.quick_question = (
+            "Show available courses"
+        )
+
+        st.rerun()
+
+
+    if st.button(
+        "🎯 View Electives",
+        use_container_width=True
+    ):
+
+        st.session_state.quick_question = (
+            "Show electives"
+        )
+
+        st.rerun()
+
+
+    if st.button(
+        "📋 Registration Guide",
+        use_container_width=True
+    ):
+
+        st.session_state.quick_question = (
+            "How do I register for a course?"
+        )
+
+        st.rerun()
+
 
     st.divider()
 
     if st.button(
-        "🗑️ Clear Conversation",
+        "🗑️ Clear Chat",
         use_container_width=True
     ):
 
@@ -573,8 +781,9 @@ with st.sidebar:
             {
                 "role": "assistant",
                 "content": (
-                    "Conversation cleared, sir. 🧹\n\n"
-                    "Bren's Jarvis is ready."
+                    "Chat cleared. 🧹\n\n"
+                    "Bren's Jarvis is ready to help with "
+                    "your course registration."
                 ),
                 "time": datetime.now().strftime("%I:%M %p")
             }
@@ -582,96 +791,107 @@ with st.sidebar:
 
         st.rerun()
 
-    st.divider()
-
-    st.success("JARVIS ONLINE")
-
-    st.caption("Built with Python + Streamlit")
-
 
 # =========================================================
 # MAIN HEADER
 # =========================================================
 
 st.markdown(
-    '<div class="main-title">🤖 Bren\'s Jarvis</div>',
+    '<div class="main-title">🎓 Bren\'s Jarvis</div>',
     unsafe_allow_html=True
 )
 
 st.markdown(
     '<div class="main-subtitle">'
-    'Just A Rather Very Intelligent System'
+    'Your Course Registration Assistant'
     '</div>',
     unsafe_allow_html=True
 )
 
 st.markdown(
-    '<div class="online-text">● Online and ready to assist</div>',
+    '<div class="status">● Registration Assistant Online</div>',
     unsafe_allow_html=True
 )
 
 
 # =========================================================
-# WELCOME SCREEN
+# WELCOME
 # =========================================================
 
 if len(st.session_state.messages) == 1:
 
-    st.markdown("""
-    <div class="welcome-box">
+    name = student_name if student_name else "Student"
 
-        <h2>⚡ Welcome, Sir.</h2>
+    st.markdown(
+        f"""
+        <div class="welcome-box">
+
+        <h2>👋 Welcome, {name}</h2>
 
         <p>
-            Bren's Jarvis is online and ready to assist you.
-            Ask a question below to begin.
+        I'm Bren's Jarvis. I can help you plan your
+        <b>{semester}</b> course registration.
         </p>
 
-    </div>
-    """, unsafe_allow_html=True)
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    st.subheader("💡 Quick Questions")
+    st.subheader("💡 What would you like to do?")
 
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
 
         if st.button(
-            "🐍 Python",
+            "📚 Courses",
             use_container_width=True
         ):
 
-            st.session_state.quick_question = "What is Python?"
+            st.session_state.quick_question = (
+                "Show available courses"
+            )
+
             st.rerun()
 
     with col2:
 
         if st.button(
-            "🤖 AI",
+            "🎯 Electives",
             use_container_width=True
         ):
 
-            st.session_state.quick_question = "What is AI?"
+            st.session_state.quick_question = (
+                "Show electives"
+            )
+
             st.rerun()
 
     with col3:
 
         if st.button(
-            "🔐 Security",
+            "📋 Registration",
             use_container_width=True
         ):
 
-            st.session_state.quick_question = "What is cybersecurity?"
+            st.session_state.quick_question = (
+                "How do I register for a course?"
+            )
+
             st.rerun()
 
     with col4:
 
         if st.button(
-            "☁️ Cloud",
+            "💡 Recommendations",
             use_container_width=True
         ):
 
-            st.session_state.quick_question = "What is cloud computing?"
+            st.session_state.quick_question = (
+                "Recommend a course"
+            )
+
             st.rerun()
 
 
@@ -689,7 +909,7 @@ for message in st.session_state.messages:
 
 
 # =========================================================
-# INPUT
+# USER INPUT
 # =========================================================
 
 if "quick_question" in st.session_state:
@@ -701,12 +921,12 @@ if "quick_question" in st.session_state:
 else:
 
     user_input = st.chat_input(
-        "Message Bren's Jarvis..."
+        "Ask Bren's Jarvis about course registration..."
     )
 
 
 # =========================================================
-# PROCESS USER MESSAGE
+# PROCESS MESSAGE
 # =========================================================
 
 if user_input:
@@ -714,7 +934,7 @@ if user_input:
     current_time = datetime.now().strftime("%I:%M %p")
 
 
-    # Save user message
+    # User message
 
     st.session_state.messages.append({
         "role": "user",
@@ -723,8 +943,6 @@ if user_input:
     })
 
 
-    # Display user message
-
     with st.chat_message("user"):
 
         st.markdown(user_input)
@@ -732,26 +950,26 @@ if user_input:
         st.caption(current_time)
 
 
-    # Generate response
+    # Jarvis response
 
     response = get_response(user_input)
 
-
-    # Display response
 
     with st.chat_message("assistant"):
 
         placeholder = st.empty()
 
-        displayed_text = ""
+        words = response.split()
 
-        for word in response.split():
+        displayed = ""
 
-            displayed_text += word + " "
+        for word in words:
 
-            placeholder.markdown(displayed_text)
+            displayed += word + " "
 
-            time.sleep(0.015)
+            placeholder.markdown(displayed)
+
+            time.sleep(0.01)
 
         st.caption(current_time)
 
@@ -771,7 +989,8 @@ if user_input:
 
 st.markdown(
     '<div class="footer">'
-    'Bren\'s Jarvis • Python • Streamlit'
+    'Bren\'s Jarvis • Course Registration Assistant • '
+    'Built with Python & Streamlit'
     '</div>',
     unsafe_allow_html=True
 )
