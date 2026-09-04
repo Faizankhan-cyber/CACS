@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 # =========================================================
-# PAGE CONFIG
+# PAGE SETTINGS
 # =========================================================
 
 st.set_page_config(
@@ -15,40 +15,36 @@ st.set_page_config(
 
 
 # =========================================================
-# CUSTOM CSS
+# WHITE UI STYLING
 # =========================================================
 
-st.markdown("""
+st.markdown(
+    """
 <style>
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-}
+/* ================================
+   MAIN PAGE
+================================ */
 
 .stApp {
-    background: #070a0f;
-    color: #f5f7fa;
+    background-color: #ffffff !important;
+    color: #111111 !important;
+}
+
+.main {
+    background-color: #ffffff !important;
 }
 
 .block-container {
-    max-width: 1180px;
-    padding-top: 25px !important;
+    max-width: 1200px;
+    padding-top: 35px !important;
     padding-bottom: 100px !important;
 }
 
 
-/* =========================================================
-   HIDE STREAMLIT BRANDING
-   ========================================================= */
+/* ================================
+   HIDE STREAMLIT DEFAULT UI
+================================ */
 
 #MainMenu {
     visibility: hidden;
@@ -59,468 +55,342 @@ footer {
 }
 
 header {
-    background: transparent !important;
+    background: #ffffff !important;
 }
 
 
-/* =========================================================
+/* ================================
    SIDEBAR
-   ========================================================= */
+================================ */
 
 section[data-testid="stSidebar"] {
-    background: #0b0f15 !important;
-    border-right: 1px solid #1d2631;
+    background-color: #ffffff !important;
+    border-right: 1px solid #e5e7eb !important;
 }
 
 section[data-testid="stSidebar"] > div {
-    padding-top: 25px;
-}
-
-.sidebar-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 4px;
-}
-
-.sidebar-logo-icon {
-    font-size: 28px;
-}
-
-.sidebar-title {
-    font-size: 21px;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.sidebar-subtitle {
-    color: #7f8997;
-    font-size: 13px;
-    margin-bottom: 25px;
-}
-
-.sidebar-section {
-    color: #f1f5f9;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 20px;
-    margin-bottom: 12px;
+    background-color: #ffffff !important;
 }
 
 
-/* =========================================================
-   MAIN HEADER
-   ========================================================= */
+/* Sidebar text */
 
-.hero {
+section[data-testid="stSidebar"] label {
+    color: #222222 !important;
+}
+
+section[data-testid="stSidebar"] p {
+    color: #555555 !important;
+}
+
+
+/* ================================
+   HEADINGS
+================================ */
+
+h1, h2, h3, h4 {
+    color: #111111 !important;
+}
+
+p {
+    color: #444444;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+input,
+textarea {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 10px !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #8a8a8a !important;
+}
+
+
+/* Select boxes */
+
+div[data-baseweb="select"] > div {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 10px !important;
+}
+
+div[data-baseweb="select"] span {
+    color: #222222 !important;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.stButton > button {
+    width: 100%;
+    background-color: #ffffff !important;
+    color: #222222 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 10px !important;
+    min-height: 45px !important;
+    font-weight: 500 !important;
+}
+
+.stButton > button:hover {
+    background-color: #f5f5f5 !important;
+    border-color: #999999 !important;
+    color: #111111 !important;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero-box {
     text-align: center;
-    padding: 10px 10px 25px;
-}
-
-.hero-icon {
-    font-size: 44px;
-    margin-bottom: 2px;
+    padding: 10px 10px 30px 10px;
 }
 
 .hero-title {
     font-size: 42px;
-    font-weight: 750;
-    letter-spacing: -1px;
-    color: #ffffff;
-    line-height: 1.15;
+    font-weight: 700;
+    color: #111111;
 }
 
 .hero-subtitle {
-    color: #8b96a5;
-    font-size: 15px;
-    margin-top: 9px;
+    font-size: 16px;
+    color: #666666;
+    margin-top: 8px;
 }
 
-.online-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 13px;
-    padding: 6px 12px;
-    border-radius: 30px;
-    background: #0c2117;
-    border: 1px solid #164b2d;
-    color: #4ade80;
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   WELCOME CARD
-   ========================================================= */
-
-.welcome-card {
-    background: linear-gradient(
-        145deg,
-        #111821,
-        #0d131a
-    );
-
-    border: 1px solid #25303d;
+.online {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 7px 14px;
+    border: 1px solid #d1d5db;
     border-radius: 20px;
-    padding: 34px 30px;
-    text-align: center;
-    margin-bottom: 28px;
+    background: #ffffff;
+    color: #333333;
+    font-size: 13px;
 }
 
-.welcome-icon {
-    font-size: 38px;
-    margin-bottom: 8px;
+
+/* ================================
+   WELCOME CARD
+================================ */
+
+.welcome-box {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 18px;
+    padding: 35px 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .welcome-title {
-    font-size: 27px;
+    font-size: 28px;
     font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 10px;
+    color: #111111;
 }
 
 .welcome-text {
-    color: #8c97a6;
     font-size: 15px;
+    color: #666666;
+    margin-top: 12px;
     line-height: 1.6;
 }
 
-.welcome-text strong {
-    color: #dce3ec;
-}
 
+/* ================================
+   ACTION CARDS
+================================ */
 
-/* =========================================================
-   QUICK ACTIONS
-   ========================================================= */
-
-.section-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 14px;
-}
-
-.action-card {
-    background: #0f151d;
-    border: 1px solid #242e3a;
+.action-box {
+    background: #ffffff;
+    border: 1px solid #dedede;
     border-radius: 15px;
-    padding: 18px;
+    padding: 20px;
     text-align: center;
-    min-height: 115px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
 }
 
 .action-icon {
-    font-size: 27px;
-    margin-bottom: 7px;
+    font-size: 28px;
 }
 
 .action-title {
-    color: #f1f5f9;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
+    color: #222222;
+    margin-top: 7px;
 }
 
-.action-description {
-    color: #727e8d;
-    font-size: 11px;
+.action-text {
+    font-size: 12px;
+    color: #777777;
     margin-top: 5px;
 }
 
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+/* ================================
+   CHAT AREA
+================================ */
 
-.stButton > button {
-    width: 100%;
-    background: #101720 !important;
-    color: #e5eaf0 !important;
-    border: 1px solid #273341 !important;
-    border-radius: 11px !important;
-    min-height: 44px !important;
-    font-size: 13px !important;
-    transition: all 0.2s ease;
-}
-
-.stButton > button:hover {
-    background: #18212c !important;
-    border-color: #435264 !important;
-    color: #ffffff !important;
-}
-
-
-/* =========================================================
-   CHAT
-   ========================================================= */
-
-.chat-container {
-    margin-top: 30px;
-}
-
-.chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 13px;
-}
-
-.chat-title {
-    font-size: 22px;
+.chat-heading {
+    font-size: 23px;
     font-weight: 700;
-    color: #ffffff;
+    color: #111111;
+    margin-top: 35px;
+    margin-bottom: 5px;
 }
 
-.chat-subtitle {
-    color: #697586;
-    font-size: 12px;
+.chat-description {
+    color: #777777;
+    font-size: 13px;
+    margin-bottom: 15px;
 }
 
 
 /* Chat messages */
 
 [data-testid="stChatMessage"] {
-    background: #10161e !important;
-    border: 1px solid #222d39 !important;
-    border-radius: 15px !important;
-    margin-bottom: 10px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #e1e1e1 !important;
+    border-radius: 14px !important;
     padding: 12px 15px !important;
+    margin-bottom: 10px !important;
 }
 
 
-/* User messages */
+/* Chat message text */
 
-[data-testid="stChatMessage"]:has(
-    [data-testid="chatAvatarIcon-user"]
-) {
-    background: #111923 !important;
+[data-testid="stChatMessage"] p {
+    color: #222222 !important;
 }
 
 
-/* =========================================================
+/* ================================
    CHAT INPUT
-   ========================================================= */
+================================ */
 
 [data-testid="stChatInput"] {
-    background: transparent !important;
-    border-top: none !important;
+    background-color: #ffffff !important;
 }
 
 [data-testid="stChatInput"] > div {
-    background: #0f151d !important;
-    border: 1px solid #2a3542 !important;
-    border-radius: 16px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 14px !important;
 }
 
 [data-testid="stChatInput"] textarea {
-    background: transparent !important;
-    color: #ffffff !important;
-    font-size: 14px !important;
-}
-
-[data-testid="stChatInput"] textarea::placeholder {
-    color: #667384 !important;
+    background-color: #ffffff !important;
+    color: #111111 !important;
 }
 
 
-/* =========================================================
-   SIDEBAR INPUTS
-   ========================================================= */
-
-section[data-testid="stSidebar"] input {
-    background: #111821 !important;
-    color: #ffffff !important;
-    border: 1px solid #293542 !important;
-}
-
-section[data-testid="stSidebar"] [data-baseweb="select"] > div {
-    background: #111821 !important;
-    border-color: #293542 !important;
-}
-
-
-/* =========================================================
-   METRIC
-   ========================================================= */
+/* ================================
+   METRICS
+================================ */
 
 [data-testid="stMetric"] {
-    background: #111821 !important;
-    border: 1px solid #25303d !important;
+    background-color: #ffffff !important;
+    border: 1px solid #dddddd !important;
     border-radius: 12px !important;
-    padding: 10px !important;
+    padding: 12px !important;
 }
 
 [data-testid="stMetricLabel"] {
-    color: #7d8998 !important;
+    color: #666666 !important;
 }
 
 [data-testid="stMetricValue"] {
-    color: #ffffff !important;
+    color: #111111 !important;
 }
 
 
-/* =========================================================
+/* ================================
    DIVIDERS
-   ========================================================= */
+================================ */
 
 hr {
-    border-color: #1d2631 !important;
+    border-color: #e5e5e5 !important;
 }
 
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.app-footer {
-    text-align: center;
-    color: #46515f;
-    font-size: 11px;
-    margin-top: 45px;
-    padding-top: 20px;
-    border-top: 1px solid #151c25;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .block-container {
-        padding-left: 24px !important;
-        padding-right: 24px !important;
-    }
-
-    .hero-title {
-        font-size: 36px;
-    }
-
-}
-
-
-/* =========================================================
+/* ================================
    MOBILE
-   ========================================================= */
+================================ */
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
 
     .block-container {
-        padding-top: 15px !important;
-        padding-left: 14px !important;
-        padding-right: 14px !important;
-        padding-bottom: 90px !important;
-    }
-
-
-    /* Header */
-
-    .hero {
-        padding-top: 8px;
-        padding-bottom: 20px;
-    }
-
-    .hero-icon {
-        font-size: 34px;
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+        padding-top: 20px !important;
     }
 
     .hero-title {
-        font-size: 30px;
-        letter-spacing: -0.5px;
-    }
-
-    .hero-subtitle {
-        font-size: 13px;
-    }
-
-    .online-status {
-        font-size: 11px;
-        padding: 5px 10px;
-    }
-
-
-    /* Welcome */
-
-    .welcome-card {
-        padding: 27px 17px;
-        border-radius: 17px;
-    }
-
-    .welcome-icon {
         font-size: 32px;
     }
 
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .welcome-box {
+        padding: 28px 18px;
+    }
+
     .welcome-title {
-        font-size: 23px;
-        line-height: 1.25;
+        font-size: 24px;
     }
 
     .welcome-text {
-        font-size: 13px;
+        font-size: 14px;
     }
 
-
-    /* Sections */
-
-    .section-title {
-        font-size: 20px;
+    .chat-heading {
+        font-size: 21px;
     }
-
-
-    /* Buttons */
-
-    .stButton > button {
-        min-height: 47px !important;
-        font-size: 13px !important;
-    }
-
-
-    /* Chat */
-
-    .chat-title {
-        font-size: 20px;
-    }
-
-    .chat-subtitle {
-        display: none;
-    }
-
-    [data-testid="stChatMessage"] {
-        border-radius: 13px !important;
-        padding: 10px 12px !important;
-    }
-
 }
 
 
-/* =========================================================
+/* ================================
    SMALL PHONES
-   ========================================================= */
+================================ */
 
-@media (max-width: 380px) {
+@media (max-width: 450px) {
 
     .hero-title {
-        font-size: 27px;
+        font-size: 28px;
     }
 
     .hero-subtitle {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .welcome-title {
-        font-size: 21px;
-    }
-
-    .welcome-text {
-        font-size: 12px;
+        font-size: 22px;
     }
 
 }
 
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
@@ -606,9 +476,8 @@ if "messages" not in st.session_state:
                 "Hello! 👋\n\n"
                 "I'm **Bren's Jarvis**, your course registration "
                 "assistant.\n\n"
-                "I can help you find courses, understand "
-                "prerequisites, choose electives and plan "
-                "your registration."
+                "I can help you find courses, explore electives, "
+                "check prerequisites, and plan your registration."
             ),
             "time": datetime.now().strftime("%I:%M %p")
         }
@@ -620,7 +489,7 @@ if "selected_courses" not in st.session_state:
 
 
 # =========================================================
-# HELPER FUNCTIONS
+# FUNCTIONS
 # =========================================================
 
 def find_course(message):
@@ -638,49 +507,45 @@ def find_course(message):
     return None, None
 
 
-def get_course_list():
+def course_list():
 
-    result = "### 📚 Available Courses\n\n"
+    text = "### 📚 Available Courses\n\n"
 
     for code, course in courses.items():
 
-        result += (
+        text += (
             f"**{code} · {course['name']}**\n\n"
-            f"🎓 {course['type']}  •  "
-            f"📊 {course['credits']} credits  •  "
+            f"🎓 {course['type']}  |  "
+            f"📊 {course['credits']} credits  |  "
             f"🕐 {course['day']} {course['time']}\n\n"
         )
 
-    return result
+    return text
 
 
-def get_electives():
+def elective_list():
 
-    result = "### 🎯 Available Electives\n\n"
+    text = "### 🎯 Available Electives\n\n"
 
     for code, course in courses.items():
 
         if course["type"] == "Elective":
 
-            result += (
+            text += (
                 f"**{code} · {course['name']}**\n\n"
-                f"📊 {course['credits']} credits  •  "
+                f"📊 {course['credits']} credits  |  "
                 f"Prerequisite: **{course['prerequisite']}**\n\n"
             )
 
-    return result
+    return text
 
 
-# =========================================================
-# JARVIS BRAIN
-# =========================================================
-
-def get_response(message):
+def jarvis_response(message):
 
     text = message.lower().strip()
 
 
-    if text in ["hi", "hello", "hey", "hii"]:
+    if text in ["hello", "hi", "hey", "hii"]:
 
         return (
             "Hello! 👋\n\n"
@@ -692,9 +557,10 @@ def get_response(message):
     if "your name" in text or "who are you" in text:
 
         return (
-            "I'm **Bren's Jarvis** 🤖.\n\n"
-            "I'm a course registration assistant designed "
-            "to help students explore and plan their courses."
+            "I'm **Bren's Jarvis** 🎓.\n\n"
+            "I'm your course registration assistant. "
+            "I can help you explore courses, electives, "
+            "prerequisites and registration information."
         )
 
 
@@ -702,13 +568,13 @@ def get_response(message):
 
         return (
             "I can help you with:\n\n"
-            "📚 **Find courses**\n"
-            "🎯 **Explore electives**\n"
-            "✅ **Check prerequisites**\n"
-            "📊 **Check credits**\n"
-            "🕐 **Check schedules**\n"
-            "💡 **Get course recommendations**\n"
-            "📋 **Understand registration steps**"
+            "📚 Find courses\n\n"
+            "🎯 Explore electives\n\n"
+            "✅ Check prerequisites\n\n"
+            "📊 Check course credits\n\n"
+            "🕐 Check course schedules\n\n"
+            "💡 Get course recommendations\n\n"
+            "📋 Understand registration steps"
         )
 
 
@@ -718,12 +584,12 @@ def get_response(message):
         or "list courses" in text
     ):
 
-        return get_course_list()
+        return course_list()
 
 
     if "elective" in text:
 
-        return get_electives()
+        return elective_list()
 
 
     if "prerequisite" in text:
@@ -735,12 +601,12 @@ def get_response(message):
             return (
                 f"### ✅ Prerequisite\n\n"
                 f"**{course['name']} ({code})**\n\n"
-                f"The prerequisite is **{course['prerequisite']}**."
+                f"Prerequisite: **{course['prerequisite']}**"
             )
 
         return (
-            "Please include the course code.\n\n"
-            "For example:\n"
+            "Please mention the course code.\n\n"
+            "Example:\n\n"
             "**What is the prerequisite for BCS305?**"
         )
 
@@ -765,7 +631,7 @@ def get_response(message):
             )
 
         return (
-            "Tell me which course you want to know about.\n\n"
+            "Tell me which course you want information about.\n\n"
             "Example: **Tell me about BCS305**"
         )
 
@@ -782,13 +648,11 @@ def get_response(message):
             )
 
         total = sum(
-            courses[c]["credits"]
-            for c in st.session_state.selected_courses
+            courses[code]["credits"]
+            for code in st.session_state.selected_courses
         )
 
-        return (
-            f"You currently have **{total} credits** selected."
-        )
+        return f"You currently have **{total} credits** selected."
 
 
     if (
@@ -798,44 +662,40 @@ def get_response(message):
     ):
 
         return (
-            "### 📋 Course Registration\n\n"
-            "**1.** Check the courses available.\n\n"
-            "**2.** Check prerequisites.\n\n"
-            "**3.** Check timetable conflicts.\n\n"
-            "**4.** Select your core courses.\n\n"
-            "**5.** Choose your electives.\n\n"
-            "**6.** Check your total credits.\n\n"
-            "**7.** Submit your registration.\n\n"
-            "Always follow your institution's official "
-            "registration rules and deadlines."
+            "### 📋 Registration Guide\n\n"
+            "**1. Check available courses**\n\n"
+            "**2. Check prerequisites**\n\n"
+            "**3. Check your timetable**\n\n"
+            "**4. Select your core courses**\n\n"
+            "**5. Choose your electives**\n\n"
+            "**6. Check your total credits**\n\n"
+            "**7. Submit your registration**"
         )
 
 
     if "cyber" in text or "security" in text:
 
         return (
-            "🔐 If you're interested in cybersecurity, "
-            "I'd recommend **Cybersecurity Fundamentals**.\n\n"
-            "It is a **3-credit elective** with no prerequisite."
+            "🔐 **Cybersecurity Fundamentals** would be "
+            "a good choice if you're interested in cybersecurity.\n\n"
+            "It is a 3-credit elective with no prerequisite."
         )
 
 
     if "cloud" in text or "azure" in text:
 
         return (
-            "☁️ If you're interested in cloud computing, "
-            "I'd recommend **Cloud Computing**.\n\n"
-            "It carries **3 credits** and requires "
-            "Computer Networks."
+            "☁️ **Cloud Computing** would be a good choice "
+            "if you're interested in cloud technologies.\n\n"
+            "It carries 3 credits and requires Computer Networks."
         )
 
 
     if "ai" in text or "artificial intelligence" in text:
 
         return (
-            "🤖 If you're interested in AI, "
-            "I'd recommend **Artificial Intelligence**.\n\n"
-            "The prerequisite is **Python Programming**."
+            "🤖 **Artificial Intelligence** is a 3-credit elective.\n\n"
+            "The prerequisite is Python Programming."
         )
 
 
@@ -848,19 +708,19 @@ def get_response(message):
 
         return (
             "Goodbye! 👋\n\n"
-            "Good luck with your course registration."
+            "Good luck with your registration."
         )
 
 
     return (
         "I'm not sure about that yet. 🤔\n\n"
-        "Try asking me:\n\n"
-        "• 📚 **Show available courses**\n"
-        "• 🎯 **Show electives**\n"
-        "• 📘 **Tell me about BCS305**\n"
-        "• ✅ **What is the prerequisite for BCS306?**\n"
-        "• 📊 **How many credits is BCS301?**\n"
-        "• 💡 **Recommend a cybersecurity course**"
+        "Try asking:\n\n"
+        "• **Show available courses**\n"
+        "• **Show electives**\n"
+        "• **Tell me about BCS305**\n"
+        "• **What is the prerequisite for BCS306?**\n"
+        "• **How many credits is BCS301?**\n"
+        "• **Recommend a cybersecurity course**"
     )
 
 
@@ -870,23 +730,13 @@ def get_response(message):
 
 with st.sidebar:
 
-    st.markdown("""
-    <div class="sidebar-logo">
-        <div class="sidebar-logo-icon">🎓</div>
-        <div class="sidebar-title">Bren's Jarvis</div>
-    </div>
+    st.title("🎓 Bren's Jarvis")
 
-    <div class="sidebar-subtitle">
-        Course Registration Assistant
-    </div>
-    """, unsafe_allow_html=True)
+    st.caption("Course Registration Assistant")
 
     st.divider()
 
-    st.markdown(
-        '<div class="sidebar-section">👨‍🎓 Student</div>',
-        unsafe_allow_html=True
-    )
+    st.subheader("👨‍🎓 Student")
 
     student_name = st.text_input(
         "Student Name",
@@ -908,10 +758,7 @@ with st.sidebar:
 
     st.divider()
 
-    st.markdown(
-        '<div class="sidebar-section">📚 Course Planner</div>',
-        unsafe_allow_html=True
-    )
+    st.subheader("📚 Course Planner")
 
     selected = st.multiselect(
         "Select courses",
@@ -932,18 +779,9 @@ with st.sidebar:
         total_credits
     )
 
-    if selected:
-
-        st.caption(
-            f"{len(selected)} course(s) selected"
-        )
-
     st.divider()
 
-    st.markdown(
-        '<div class="sidebar-section">⚡ Quick Actions</div>',
-        unsafe_allow_html=True
-    )
+    st.subheader("⚡ Quick Actions")
 
     if st.button(
         "📚 View Courses",
@@ -1000,29 +838,23 @@ with st.sidebar:
 
 
 # =========================================================
-# HERO
+# MAIN HEADER
 # =========================================================
 
-st.markdown("""
-<div class="hero">
-
-    <div class="hero-icon">🎓</div>
-
-    <div class="hero-title">
-        Bren's Jarvis
+st.markdown(
+    """
+    <div class="hero-box">
+        <div class="hero-title">🎓 Bren's Jarvis</div>
+        <div class="hero-subtitle">
+            Your Course Registration Assistant
+        </div>
+        <div class="online">
+            ● Registration Assistant Online
+        </div>
     </div>
-
-    <div class="hero-subtitle">
-        Your Course Registration Assistant
-    </div>
-
-    <div class="online-status">
-        <span>●</span>
-        Registration Assistant Online
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
@@ -1033,20 +865,17 @@ name = student_name if student_name else "Student"
 
 st.markdown(
     f"""
-    <div class="welcome-card">
-
-        <div class="welcome-icon">👋</div>
-
+    <div class="welcome-box">
         <div class="welcome-title">
-            Welcome, {name}
+            👋 Welcome, {name}
         </div>
 
         <div class="welcome-text">
             I'm Bren's Jarvis. I can help you plan your
             <strong>{semester}</strong> course registration,
-            explore electives and check course requirements.
+            explore electives, check prerequisites,
+            and understand your course options.
         </div>
-
     </div>
     """,
     unsafe_allow_html=True
@@ -1057,162 +886,137 @@ st.markdown(
 # QUICK ACTIONS
 # =========================================================
 
-st.markdown(
-    '<div class="section-title">💡 What would you like to do?</div>',
-    unsafe_allow_html=True
-)
+st.subheader("💡 What would you like to do?")
 
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
 
-    st.markdown("""
-    <div class="action-card">
-
-        <div class="action-icon">📚</div>
-
-        <div class="action-title">
-            Courses
+    st.markdown(
+        """
+        <div class="action-box">
+            <div class="action-icon">📚</div>
+            <div class="action-title">Courses</div>
+            <div class="action-text">
+                Browse available courses
+            </div>
         </div>
-
-        <div class="action-description">
-            Browse available courses
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
     if st.button(
         "View Courses",
-        key="courses_btn",
+        key="main_courses",
         use_container_width=True
     ):
 
         st.session_state.quick_question = (
             "Show available courses"
         )
-
         st.rerun()
 
 
 with col2:
 
-    st.markdown("""
-    <div class="action-card">
-
-        <div class="action-icon">🎯</div>
-
-        <div class="action-title">
-            Electives
+    st.markdown(
+        """
+        <div class="action-box">
+            <div class="action-icon">🎯</div>
+            <div class="action-title">Electives</div>
+            <div class="action-text">
+                Explore elective subjects
+            </div>
         </div>
-
-        <div class="action-description">
-            Explore elective subjects
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
     if st.button(
         "View Electives",
-        key="electives_btn",
+        key="main_electives",
         use_container_width=True
     ):
 
         st.session_state.quick_question = (
             "Show electives"
         )
-
         st.rerun()
 
 
 with col3:
 
-    st.markdown("""
-    <div class="action-card">
-
-        <div class="action-icon">📋</div>
-
-        <div class="action-title">
-            Registration
+    st.markdown(
+        """
+        <div class="action-box">
+            <div class="action-icon">📋</div>
+            <div class="action-title">Registration</div>
+            <div class="action-text">
+                Learn registration steps
+            </div>
         </div>
-
-        <div class="action-description">
-            Learn registration steps
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
     if st.button(
         "Registration Guide",
-        key="registration_btn",
+        key="main_registration",
         use_container_width=True
     ):
 
         st.session_state.quick_question = (
             "How do I register for a course?"
         )
-
         st.rerun()
 
 
 with col4:
 
-    st.markdown("""
-    <div class="action-card">
-
-        <div class="action-icon">💡</div>
-
-        <div class="action-title">
-            Recommendations
+    st.markdown(
+        """
+        <div class="action-box">
+            <div class="action-icon">💡</div>
+            <div class="action-title">Recommendations</div>
+            <div class="action-text">
+                Get course recommendations
+            </div>
         </div>
-
-        <div class="action-description">
-            Find courses for your goals
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
     if st.button(
         "Get Recommendation",
-        key="recommend_btn",
+        key="main_recommend",
         use_container_width=True
     ):
 
         st.session_state.quick_question = (
             "Recommend a course"
         )
-
         st.rerun()
 
 
 # =========================================================
-# CHAT HEADER
+# CHAT
 # =========================================================
 
-st.markdown("""
-<div class="chat-container">
+st.markdown(
+    '<div class="chat-heading">💬 Chat with Jarvis</div>',
+    unsafe_allow_html=True
+)
 
-    <div class="chat-header">
-
-        <div class="chat-title">
-            💬 Chat with Jarvis
-        </div>
-
-        <div class="chat-subtitle">
-            Ask anything about course registration
-        </div>
-
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="chat-description">'
+    'Ask anything about your course registration.'
+    '</div>',
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
-# CHAT HISTORY
+# DISPLAY CHAT HISTORY
 # =========================================================
 
 for message in st.session_state.messages:
@@ -1225,7 +1029,7 @@ for message in st.session_state.messages:
 
 
 # =========================================================
-# INPUT
+# CHAT INPUT
 # =========================================================
 
 if "quick_question" in st.session_state:
@@ -1242,18 +1046,20 @@ else:
 
 
 # =========================================================
-# PROCESS MESSAGE
+# PROCESS USER MESSAGE
 # =========================================================
 
 if user_input:
 
     current_time = datetime.now().strftime("%I:%M %p")
 
-    st.session_state.messages.append({
-        "role": "user",
-        "content": user_input,
-        "time": current_time
-    })
+    st.session_state.messages.append(
+        {
+            "role": "user",
+            "content": user_input,
+            "time": current_time
+        }
+    )
 
     with st.chat_message("user"):
 
@@ -1262,7 +1068,7 @@ if user_input:
         st.caption(current_time)
 
 
-    response = get_response(user_input)
+    response = jarvis_response(user_input)
 
     with st.chat_message("assistant"):
 
@@ -1271,20 +1077,22 @@ if user_input:
         st.caption(current_time)
 
 
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": response,
-        "time": current_time
-    })
+    st.session_state.messages.append(
+        {
+            "role": "assistant",
+            "content": response,
+            "time": current_time
+        }
+    )
 
 
 # =========================================================
 # FOOTER
 # =========================================================
 
-st.markdown("""
-<div class="app-footer">
-    Bren's Jarvis · Course Registration Assistant
-    · Built with Python & Streamlit
-</div>
-""", unsafe_allow_html=True)
+st.divider()
+
+st.caption(
+    "Bren's Jarvis · Course Registration Assistant · "
+    "Built with Python & Streamlit"
+)
